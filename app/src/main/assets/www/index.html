@@ -1,110 +1,2064 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مخصص التطبيقات الحر</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #09090b 100%);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            color: #fff;
-            min-height: 100vh;
-        }
-        .ios-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            background-color: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .ios-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover,interactive-widget=resizes-content">
+<meta name="theme-color" content="#24272c">
+<title>نيرو - محرر البرمجة بالعربي</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231e1b4b'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Cpath d='M21 29v8c0 7 5 11 11 11s11-4 11-11' fill='none' stroke='white' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='19' r='3.5' fill='%2322d3ee'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#272b36;--bar:#24272c;--bar2:#1e2227;--tx:#e8e8e8;--dim:#8b9099;--line:#34383f;--ac:#3b6fd6;--cur:#2e3446;--gut:#2a2e39;--menu:#23272c;--fs:14px;--lh:20px;--mono:"JetBrains Mono","Fira Code",Menlo,Consolas,"DejaVu Sans Mono",monospace}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bar);color:var(--tx);font-family:system-ui,"Noto Sans Arabic","Segoe UI",Tahoma,sans-serif;overflow:hidden;overscroll-behavior:none}
+button{font:inherit;color:inherit;cursor:pointer}
+svg{fill:currentColor;display:block}
+#app{position:fixed;left:0;right:0;top:0;height:100%;display:flex;flex-direction:column;direction:ltr}
+#top{height:48px;background:var(--bar);display:flex;align-items:center;padding:0 4px;flex:none}
+.ib{width:44px;height:44px;border:0;background:none;display:grid;place-items:center;border-radius:50%;flex:none;color:#fff}
+.ib svg{width:24px;height:24px}
+.ib:active{background:#ffffff22}
+.ttl{flex:1;min-width:0;padding:0 8px}
+.ttl b{display:block;font-size:19px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.15}
+.ttl small{display:block;font-size:12px;color:var(--dim);direction:rtl;text-align:left;line-height:1.2}
+.pill{height:32px;border:0;border-radius:16px;padding:0 10px;margin:0 4px;background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;gap:5px;flex:none}
+.pill svg{width:18px;height:18px}
+.pill:active{filter:brightness(.85)}
+#tabs{display:flex;height:34px;background:var(--bar);overflow-x:auto;flex:none;scrollbar-width:none}
+#tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;min-width:118px;max-width:190px;display:flex;align-items:center;gap:6px;padding:0 8px;font-size:15px;border-top:2px solid transparent;color:#cfd2d8;position:relative}
+.tab.on{border-top-color:var(--ac);background:var(--bar2);color:#fff}
+.tab .dot{width:6px;height:6px;border-radius:50%;background:#ffd600;flex:none;visibility:hidden}
+.tab.d .dot{visibility:visible}
+.tab .fi{width:18px;height:18px;flex:none}
+.tab .nm{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tab .x{width:20px;height:20px;border:0;background:none;color:#fff;padding:0;flex:none}
+.tab .x svg{width:20px;height:20px}
+#findbar{background:var(--bar);padding:6px;display:none;flex-direction:column;gap:6px;flex:none;border-top:1px solid var(--line);direction:rtl}
+#findbar.open{display:flex}
+#findbar .r{display:flex;gap:6px;align-items:center}
+#findbar input{flex:1;min-width:0;height:36px;border-radius:8px;border:1px solid var(--line);background:#1b1e22;color:#fff;padding:0 10px;font:inherit;font-size:15px;outline:0}
+#findbar input:focus{border-color:var(--ac)}
+#findbar button.s{height:36px;min-width:36px;padding:0 10px;border-radius:8px;border:0;background:#33373f;color:#fff;font-size:13px}
+#findbar button.s svg{width:20px;height:20px;margin:auto}
+#findcount{font-size:12px;color:var(--dim);min-width:38px;text-align:center}
+#ed{flex:1;display:flex;min-height:0;background:var(--bg);position:relative}
+#gutter{flex:none;width:46px;background:var(--gut);overflow:hidden;color:#6f7685;font:var(--fs)/var(--lh) var(--mono);text-align:center;position:relative}
+#gin{padding-top:8px;white-space:pre;will-change:transform}
+#wrap{position:relative;flex:1;min-width:0;overflow:hidden}
+#cur{position:absolute;left:0;right:0;height:var(--lh);background:var(--cur);pointer-events:none}
+.code{font:var(--fs)/var(--lh) var(--mono);letter-spacing:0;tab-size:2;-moz-tab-size:2;white-space:pre;padding:8px 14px 160px 8px;margin:0;border:0;direction:ltr;text-align:left;font-variant-ligatures:none;word-spacing:0;text-rendering:auto}
+#hl{position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;color:#abb2bf}
+#ta{position:absolute;left:0;top:0;width:100%;height:100%;background:transparent;color:transparent;caret-color:#fff;resize:none;outline:0;overflow:auto;-webkit-text-size-adjust:100%;border-radius:0}
+#ta::selection{background:#3b6fd677}
+.c-pn{color:#9aa3b2}.c-tg{color:#e06c75}.c-tu{color:#e5a06c}.c-at{color:#d19a66}.c-au{color:#c9b28a}.c-st{color:#98c379}
+.c-cm{color:#7f848e;font-style:italic}.c-kw{color:#c678dd}.c-gl{color:#56b6c2}.c-fn{color:#61afef}.c-nm{color:#d19a66}
+.c-pr{color:#56b6c2}.c-pu{color:#c9b28a}.c-vl{color:#98c379}.c-cl{color:#e5c07b}.c-id{color:#61afef}.c-ps{color:#c678dd}
+#sugg{display:none;flex:none;background:#2d3139;overflow-x:auto;white-space:nowrap;padding:5px 6px;gap:6px;scrollbar-width:none;direction:rtl}
+#sugg.open{display:flex}
+#sugg::-webkit-scrollbar{display:none}
+#sugg button{flex:none;border:0;background:#3a3f4a;color:#fff;border-radius:14px;padding:6px 14px;font-size:15px}
+#sugg button:active{background:var(--ac)}
+#qt{flex:none;background:var(--bar);height:92px;position:relative;touch-action:manipulation}
+.qr{display:none;height:46px}
+.qr.on{display:flex}
+.qb{flex:1;border:0;background:none;color:#fff;font-weight:600;font-size:14px;display:grid;place-items:center;position:relative;padding:0;min-width:0}
+.qb svg{width:24px;height:24px}
+.qb:active{background:#ffffff1c}
+.qb.act{color:#6ea0ff;background:#ffffff14}
+.qb.dis{opacity:.4}
+.qb .sm{font-size:11px;position:absolute;margin-left:12px;margin-top:6px}
+.qb.sy{font-size:20px;font-weight:500;font-family:var(--mono)}
+.qb.sn{font-size:13px;font-weight:600;direction:rtl;white-space:nowrap}
+#svdot{position:absolute;top:3px;right:50%;margin-right:-18px;width:7px;height:7px;border-radius:50%;background:#ffd600;display:none}
+#fab{position:absolute;right:16px;bottom:100px;width:46px;height:46px;border-radius:50%;border:2px solid #fff;background:#24272ccc;display:grid;place-items:center;color:#fff;z-index:5;box-shadow:0 2px 10px #0008}
+#fab svg{width:26px;height:26px;transition:transform .2s}
+#fab.up svg{transform:rotate(180deg)}
+#toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%);background:#101215;color:#fff;border-radius:20px;padding:10px 18px;font-size:14px;z-index:99;display:none;max-width:90%;box-shadow:0 4px 16px #000a;align-items:center;gap:12px;direction:rtl}
+#toast.show{display:flex}
+#toast button{border:0;background:none;color:#6ea0ff;font-weight:700;font-size:14px;padding:0}
+.shade{position:fixed;left:0;top:0;right:0;bottom:0;z-index:48;background:transparent}
+.menu{position:fixed;background:var(--menu);border-radius:6px;box-shadow:0 8px 28px #000c;min-width:250px;max-width:90%;max-height:82%;overflow:auto;z-index:50;direction:ltr}
+.mi{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:0 16px;min-height:52px;font-size:16px;text-align:left;width:100%;border:0;background:none;color:#fff}
+.mi:active{background:#ffffff14}
+.mi .lb{flex:1;min-width:0}
+.mi small{display:block;color:var(--dim);font-size:13px;margin-top:1px}
+.mi svg{width:22px;height:22px;flex:none}
+.mi.off{color:#6d727b}
+.mi.off small{color:#5a5f68}
+.msep{height:1px;background:#3b4048;margin:0}
+.chk{width:30px;height:30px;border:2px solid #cfd2d8;border-radius:6px;flex:none;display:grid;place-items:center}
+.chk.on{background:var(--ac);border-color:var(--ac)}
+.chk.on::after{content:"";width:8px;height:15px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-1px)}
+#drawer{position:fixed;left:0;top:0;right:0;bottom:0;z-index:40;display:none;direction:ltr}
+#drawer.open{display:block}
+#dscrim{position:absolute;left:0;top:0;right:0;bottom:0;background:#0009}
+#dpanel{position:absolute;left:0;top:0;bottom:0;width:min(90%,360px);display:flex;background:var(--menu);box-shadow:4px 0 24px #000a}
+#rail{width:54px;background:var(--bar2);display:flex;flex-direction:column;align-items:center;padding-top:8px;flex:none;position:relative}
+#rail .rb{width:44px;height:44px;border:0;background:none;color:#8d929b;border-radius:12px;display:grid;place-items:center;margin:4px 0;position:relative}
+#rail .rb svg{width:26px;height:26px}
+#rail .rb.on{background:#13161a;color:#fff}
+#rail .rb.on::before{content:"";position:absolute;left:-5px;top:8px;bottom:8px;width:4px;border-radius:0 4px 4px 0;background:#fff}
+#rail .av{margin-top:auto;border-top:1px solid #333;width:100%;padding:10px 0;display:grid;place-items:center}
+#rail .av button{border:0;background:none;color:#9aa0a8;padding:0}
+#rail .av svg{width:38px;height:38px}
+#pbody{flex:1;min-width:0;display:flex;flex-direction:column;direction:rtl}
+.ph{display:flex;align-items:center;padding:12px 14px 8px;gap:4px}
+.ph h3{flex:1;margin:0;font-size:19px;font-weight:600}
+.ph .ib{width:38px;height:38px}
+.pin{margin:4px 14px 10px;height:44px;border-radius:10px;border:1px solid #4a4f58;background:transparent;color:#fff;padding:0 12px;font:inherit;font-size:16px;outline:0;width:calc(100% - 28px)}
+.pin:focus{border-color:var(--ac)}
+.plist{flex:1;overflow:auto;border-top:1px solid #353a41}
+.pi{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #2c3036;width:100%;border-left:0;border-right:0;border-top:0;background:none;color:#fff;text-align:right}
+.pi:active{background:#ffffff12}
+.pi .fi{width:22px;height:22px;flex:none}
+.pi .t{flex:1;min-width:0}
+.pi .t b{display:block;font-weight:500;font-size:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:right}
+.pi .t small{color:var(--dim);font-size:12px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pi .ib{width:34px;height:34px;color:#aaa}
+.grp{padding:10px 14px;font-size:14px;color:#9aa0a8;background:#1f2327;border-bottom:1px solid #2c3036;display:flex;justify-content:space-between;width:100%;border-left:0;border-right:0;border-top:0;text-align:right}
+.ri{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-bottom:1px solid #2a2e33;width:100%;border-left:0;border-right:0;border-top:0;background:none;color:#fff;gap:10px}
+.ri:active{background:#ffffff12}
+.ri .a{font-size:16px;text-align:right}
+.ri .e{font-family:var(--mono);font-size:13px;color:#98c379;direction:ltr;text-align:left}
+.sr{padding:8px 14px;border-bottom:1px solid #2a2e33;font-size:13px;color:#cfd2d8;width:100%;border-left:0;border-right:0;border-top:0;background:none;text-align:right}
+.sr b{color:#fff;font-size:15px;display:block;direction:ltr;text-align:right}
+.sr code{display:block;direction:ltr;text-align:left;font-family:var(--mono);color:#9aa3b2;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.empty{padding:24px;color:var(--dim);text-align:center;font-size:14px}
+.btnrow{display:flex;gap:8px;padding:8px 14px}
+.btnrow button{flex:1;height:40px;border-radius:10px;border:0;background:#33373f;color:#fff;font-size:14px}
+#dlg{position:fixed;left:0;top:0;right:0;bottom:0;z-index:70;background:#000a;display:none;align-items:center;justify-content:center;padding:16px;direction:rtl}
+#dlg.open{display:flex}
+#dlg .card{background:var(--menu);border-radius:14px;width:100%;max-width:420px;max-height:88%;overflow:auto;padding:18px 18px 12px;box-shadow:0 10px 40px #000}
+.card h4{margin:0 0 10px;font-size:18px}
+.card p{margin:6px 0;line-height:1.7;font-size:15px;color:#d5d8de}
+.card input[type=text],.card textarea{width:100%;height:44px;border-radius:10px;border:1px solid #4a4f58;background:#1b1e22;color:#fff;padding:0 12px;font:inherit;font-size:16px;outline:0;margin:6px 0}
+.card input[type=text]:focus{border-color:var(--ac)}
+.card .acts{display:flex;gap:8px;justify-content:flex-start;margin-top:12px;flex-wrap:wrap}
+.card .acts button{border:0;border-radius:10px;padding:10px 16px;background:#33373f;color:#fff;font-size:15px}
+.card .acts button.p{background:var(--ac)}
+.card .acts button.dz{background:#c0392b}
+.card .opt{display:flex;width:100%;align-items:center;gap:12px;padding:13px 10px;border:0;border-radius:10px;background:#2b2f36;color:#fff;margin:6px 0;text-align:right;font-size:16px}
+.card .opt small{display:block;color:var(--dim);font-size:12px;margin-top:2px}
+.card .opt svg{width:24px;height:24px;flex:none;color:#8fb3ff}
+.fld{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #31353c;font-size:15px}
+.fld input[type=range]{width:50%}
+.fld input[type=text]{width:50%;height:38px;margin:0;direction:ltr}
+.sw{width:46px;height:26px;border-radius:13px;background:#4a4f58;position:relative;border:0;flex:none}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .15s}
+.sw.on{background:var(--ac)}
+.sw.on::after{transform:translateX(20px)}
+#pv{position:fixed;left:0;top:0;right:0;bottom:0;z-index:60;background:#fff;display:none;flex-direction:column;direction:ltr}
+#pv.open{display:flex}
+#pvbar{height:48px;background:var(--bar);display:flex;align-items:center;padding:0 4px;color:#fff;flex:none}
+#pvbar .t{flex:1;padding:0 8px;font-weight:600;direction:rtl;text-align:left}
+#pvf{flex:1;border:0;background:#fff;width:100%}
+#pvc{display:none;height:38%;background:#16191d;color:#e8e8e8;flex-direction:column;border-top:2px solid var(--ac);flex:none}
+#pvc.open{display:flex}
+#pvch{display:flex;align-items:center;justify-content:space-between;padding:4px 10px;background:#1e2227;font-size:13px;direction:rtl}
+#pvch button{border:0;background:none;color:#6ea0ff;font-size:13px}
+#pvl{flex:1;overflow:auto;font:12.5px/1.5 var(--mono);padding:6px 10px;direction:ltr;text-align:left}
+#pvl div{padding:2px 0;border-bottom:1px solid #22262b;white-space:pre-wrap;word-break:break-word}
+#pvl .error{color:#ff7b72}#pvl .warn{color:#e5c07b}
+#ai{position:fixed;left:0;top:0;right:0;bottom:0;z-index:55;background:var(--bar);display:none;flex-direction:column;direction:rtl}
+#ai.open{display:flex}
+#aih{display:flex;align-items:center;gap:6px;padding:6px 8px;background:var(--bar2);flex:none}
+#aih h3{flex:1;margin:0;font-size:18px}
+#aim{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
+.bub{max-width:94%;padding:10px 13px;border-radius:14px;line-height:1.85;font-size:15px;word-break:break-word}
+.bub.u{align-self:flex-start;background:var(--ac);color:#fff;border-bottom-right-radius:4px}
+.bub.a{align-self:flex-end;background:#2d3139;border-bottom-left-radius:4px;width:94%}
+.bub code{background:#00000055;padding:1px 6px;border-radius:5px;font-family:var(--mono);font-size:13px;direction:ltr;display:inline-block}
+.cb{background:#1b1e24;border-radius:10px;margin:8px 0;overflow:hidden;direction:ltr}
+.cbh{display:flex;justify-content:space-between;align-items:center;padding:4px 8px;background:#23272f;font-size:12px;color:#9aa3b2;font-family:var(--mono)}
+.cbh span{display:flex;gap:6px}
+.cbh button{border:0;border-radius:6px;background:#3a3f4a;color:#fff;padding:3px 9px;font-size:12px;font-family:system-ui,sans-serif}
+.cb pre{margin:0;padding:10px;overflow-x:auto;font:12.5px/1.6 var(--mono);color:#abb2bf;white-space:pre;tab-size:2}
+#aic{display:flex;gap:6px;overflow-x:auto;padding:6px 8px;flex:none;scrollbar-width:none}
+#aic::-webkit-scrollbar{display:none}
+#aic button{flex:none;border:1px solid #444a54;background:#2a2e35;color:#dfe3ea;border-radius:16px;padding:6px 12px;font-size:13px}
+#aif{display:flex;gap:6px;padding:8px;background:var(--bar2);flex:none;align-items:flex-end}
+#aif textarea{flex:1;min-height:44px;max-height:120px;border-radius:14px;border:1px solid #444a54;background:#1b1e22;color:#fff;padding:10px 12px;font:inherit;font-size:16px;outline:0;resize:none}
+#aif .ib{background:var(--ac);width:44px;height:44px;flex:none}
+.typing{display:inline-block;animation:bl 1s infinite}
+@keyframes bl{50%{opacity:.2}}
+@media (min-width:700px){#app,#pv,#ai{max-width:760px;left:50%;transform:translateX(-50%)}}
+
+</style>
+<script src="https://js.puter.com/v2/"></script>
 </head>
-<body class="p-4 flex flex-col items-center justify-center">
+<body>
+<div id="app">
+  <header id="top">
+    <button class="ib" id="bMenu" aria-label="القائمة"></button>
+    <div class="ttl"><b id="fT">index.html</b><small id="fS">ملف جديد</small></div>
+    <button class="pill" id="bConv" aria-label="حوّل للإنجليزي"></button>
+    <button class="ib" id="bEdit" aria-label="الملف"></button>
+    <button class="ib" id="bRun" aria-label="تشغيل"></button>
+    <button class="ib" id="bMore" aria-label="المزيد"></button>
+  </header>
+  <div id="tabs"></div>
+  <div id="findbar">
+    <div class="r"><input id="fIn" type="text" placeholder="بحث" autocomplete="off"><span id="findcount"></span>
+      <button class="s" id="fPrev"></button><button class="s" id="fNext"></button><button class="s" id="fX"></button></div>
+    <div class="r"><input id="rIn" type="text" placeholder="استبدال بـ" autocomplete="off">
+      <button class="s" id="rOne">استبدال</button><button class="s" id="rAll">الكل</button></div>
+  </div>
+  <main id="ed">
+    <div id="gutter"><div id="gin"></div></div>
+    <div id="wrap"><div id="cur"></div><pre id="hl" class="code" aria-hidden="true"></pre>
+      <textarea id="ta" class="code" wrap="off" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea></div>
+  </main>
+  <div id="sugg"></div>
+  <footer id="qt"></footer>
+  <button id="fab" aria-label="الأدوات"></button>
+</div>
+<div id="toast"></div>
+<div id="drawer"><div id="dscrim"></div><div id="dpanel"><div id="rail"></div><div id="pbody"></div></div></div>
+<div id="dlg"><div class="card"></div></div>
+<div id="pv">
+  <div id="pvbar"><button class="ib" id="pvX"></button><div class="t">معاينة</div>
+    <button class="ib" id="pvR"></button><button class="ib" id="pvC"></button></div>
+  <iframe id="pvf" sandbox="allow-scripts allow-modals allow-forms allow-popups allow-pointer-lock"></iframe>
+  <div id="pvc"><div id="pvch"><span>وحدة التحكم</span><button id="pvClr">مسح</button></div><div id="pvl"></div></div>
+</div>
+<div id="ai">
+  <div id="aih"><button class="ib" id="aiX"></button><h3>معلم نيرو 🤖</h3><button class="ib" id="aiClr"></button></div>
+  <div id="aim"></div>
+  <div id="aic"></div>
+  <div id="aif"><textarea id="aiIn" rows="1" placeholder="اسأل المعلم عن البرمجة…"></textarea><button class="ib" id="aiSend"></button></div>
+</div>
+<input type="file" id="fileIn" accept=".html,.htm,.css,.js,.json,.txt,.py,.md" hidden>
+<script>
+var NERO = (function () {
+'use strict';
 
-    <div class="w-full max-w-md bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-2xl">
-        <h1 class="text-2xl font-bold text-center mb-2">تخصيص أيقونات التطبيقات</h1>
-        <p class="text-gray-300 text-center text-xs mb-6">اكتب اسم التطبيق وحزمة الأندرويد مالته وافتحه بكل حرية!</p>
+/* ============ تطبيع الكلمات العربية ============ */
+const TASH = /[\u064B-\u065F\u0670\u0640]/g;
+function d2a(s) {
+  return s.replace(/[٠-٩]/g, d => String(d.charCodeAt(0) - 1632)).replace(/[۰-۹]/g, d => String(d.charCodeAt(0) - 1776));
+}
+function norm(s) {
+  return d2a(String(s).replace(TASH, ''))
+    .replace(/[أإآٱ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي')
+    .replace(/_/g, '-').toLowerCase();
+}
+function mk(o) {
+  const m = new Map();
+  Object.keys(o).forEach(k => k.split('|').forEach(a => m.set(norm(a), o[k])));
+  return m;
+}
+function words(o) {
+  const r = [];
+  Object.keys(o).forEach(k => k.split('|').forEach(a => r.push({ ar: a, en: o[k], n: norm(a) })));
+  return r;
+}
 
-        <div class="space-y-4">
-            <div>
-                <label class="block text-xs font-medium mb-1 text-gray-200">اسم التطبيق الجديد</label>
-                <input type="text" id="appName" placeholder="مثلاً: يوتيوب السري" value="تطبيقي"
-                    class="w-full px-4 py-3 bg-black/40 border border-white/25 rounded-xl focus:outline-none focus:border-pink-500 text-white text-sm">
-            </div>
+/* ============ القواميس ============ */
+const R = {};
 
-            <div>
-                <label class="block text-xs font-medium mb-1 text-gray-200">حزمة التطبيق (Package Name)</label>
-                <input type="text" id="packageInput" placeholder="مثل: com.google.android.youtube" dir="ltr"
-                    class="w-full px-4 py-3 bg-black/40 border border-white/25 rounded-xl focus:outline-none focus:border-pink-500 text-white text-sm text-left">
-                <p class="text-[10px] text-gray-400 mt-1">ملاحظة: تلكى اسم الحزمة من رابط متصفح متجر بلي بعد id=</p>
-            </div>
+R.tags = {
+  'صفحة|صفحة_ويب': 'html', 'راس|رأس|راس_الصفحة': 'head', 'جسم|جسد|محتوى_الصفحة': 'body',
+  'عنوان_الصفحة': 'title', 'عنوان|عنوان1': 'h1', 'عنوان2': 'h2', 'عنوان3': 'h3', 'عنوان4': 'h4', 'عنوان5': 'h5', 'عنوان6': 'h6',
+  'فقرة': 'p', 'رابط': 'a', 'صورة': 'img', 'قسم': 'div', 'نص': 'span', 'زر': 'button', 'ادخال': 'input',
+  'نموذج': 'form', 'تسمية': 'label', 'قائمة': 'ul', 'قائمة_مرقمة': 'ol', 'عنصر': 'li',
+  'جدول': 'table', 'صف': 'tr', 'خلية': 'td', 'راس_خلية': 'th', 'راس_الجدول': 'thead', 'جسم_الجدول': 'tbody', 'ذيل_الجدول': 'tfoot',
+  'سطر_جديد': 'br', 'خط': 'hr', 'ميتا': 'meta', 'ربط': 'link', 'ستايل|نمط': 'style', 'سكربت|سكريبت|برنامج': 'script',
+  'ترويسة': 'header', 'تذييل': 'footer', 'تنقل': 'nav', 'رئيسي': 'main', 'مقطع': 'section', 'مقالة': 'article', 'جانبي': 'aside',
+  'عريض': 'strong', 'غامق': 'b', 'مائل': 'em', 'ايطالي': 'i', 'تسطير': 'u', 'صغير': 'small', 'تمييز': 'mark',
+  'كود': 'code', 'منسق': 'pre', 'اقتباس': 'blockquote', 'فيديو': 'video', 'صوت': 'audio', 'مصدر': 'source',
+  'اطار': 'iframe', 'لوحة': 'canvas', 'اختيار': 'select', 'خيار': 'option', 'مجموعة_خيارات': 'optgroup',
+  'منطقة_نص': 'textarea', 'رسم_متجه': 'svg', 'تفاصيل': 'details', 'ملخص': 'summary', 'حوار': 'dialog',
+  'تقدم': 'progress', 'مقياس': 'meter', 'مجموعة': 'fieldset', 'وسيلة_ايضاح': 'legend', 'شكل': 'figure',
+  'تعليق_الشكل': 'figcaption', 'مرفوع': 'sup', 'منخفض': 'sub', 'محذوف': 'del', 'مضاف': 'ins',
+  'قالب': 'template', 'بدون_سكربت': 'noscript', 'اختصار': 'abbr', 'وقت': 'time', 'قاعدة': 'base', 'مسار_صوت': 'track'
+};
+R.attrs = {
+  'فئة|كلاس': 'class', 'معرف': 'id', 'نمط': 'style', 'وجهة|مسار': 'href', 'مصدر': 'src', 'بديل': 'alt',
+  'عرض': 'width', 'ارتفاع': 'height', 'نوع': 'type', 'اسم': 'name', 'قيمة': 'value', 'نص_توضيحي': 'placeholder',
+  'لغة': 'lang', 'اتجاه': 'dir', 'ترميز': 'charset', 'محتوى': 'content', 'علاقة': 'rel', 'هدف': 'target',
+  'تلميح': 'title', 'معطل': 'disabled', 'مطلوب': 'required', 'محدد': 'checked', 'للقراءة_فقط': 'readonly',
+  'تركيز_تلقائي': 'autofocus', 'مخفي': 'hidden', 'مختار': 'selected', 'متعدد': 'multiple', 'ادنى': 'min',
+  'اقصى': 'max', 'خطوة': 'step', 'صفوف': 'rows', 'اعمدة': 'cols', 'امتداد_اعمدة': 'colspan', 'امتداد_صفوف': 'rowspan',
+  'اجراء': 'action', 'طريقة': 'method', 'لاجل': 'for', 'ازرار_تحكم': 'controls', 'تشغيل_تلقائي': 'autoplay',
+  'تكرار': 'loop', 'صامت': 'muted', 'اقصى_طول': 'maxlength', 'ادنى_طول': 'minlength', 'نمط_ادخال': 'pattern',
+  'تاجيل': 'defer', 'غير_متزامن': 'async', 'قبول': 'accept', 'ملصق': 'poster', 'حجم': 'size',
+  'اكمال_تلقائي': 'autocomplete', 'قابل_للتحرير': 'contenteditable', 'قابل_للسحب': 'draggable',
+  'فهرس_التبويب': 'tabindex', 'دور': 'role', 'مفتوح': 'open', 'تحميل': 'loading',
+  'عند_الضغط|عند_النقر': 'onclick', 'عند_التغيير': 'onchange', 'عند_الادخال': 'oninput', 'عند_الارسال': 'onsubmit',
+  'عند_التحميل': 'onload', 'عند_مرور_الماوس': 'onmouseover', 'عند_خروج_الماوس': 'onmouseout',
+  'عند_ضغط_مفتاح': 'onkeydown', 'عند_رفع_مفتاح': 'onkeyup', 'عند_التركيز': 'onfocus', 'عند_فقدان_التركيز': 'onblur',
+  'عند_نقر_مزدوج': 'ondblclick', 'عند_اللمس': 'ontouchstart', 'عند_التمرير': 'onscroll', 'عند_الخطا': 'onerror'
+};
+R.attrVals = {
+  type: {
+    'نص': 'text', 'كلمة_مرور': 'password', 'بريد': 'email', 'رقم': 'number', 'مربع_اختيار': 'checkbox',
+    'خيار_واحد': 'radio', 'ارسال': 'submit', 'زر': 'button', 'ملف': 'file', 'تاريخ': 'date', 'وقت': 'time',
+    'لون': 'color', 'مدى': 'range', 'مخفي': 'hidden', 'بحث': 'search', 'هاتف': 'tel', 'رابط_ويب': 'url',
+    'اعادة_ضبط': 'reset', 'صورة': 'image', 'وحدة': 'module'
+  },
+  dir: { 'يمين': 'rtl', 'يسار': 'ltr', 'تلقائي': 'auto' },
+  target: { 'جديدة': '_blank', 'نفسها': '_self', 'الاب': '_parent', 'الاعلى': '_top' },
+  method: { 'جلب': 'get', 'ارسال': 'post' },
+  rel: { 'ورقة_انماط': 'stylesheet', 'ايقونة': 'icon' },
+  lang: { 'عربي': 'ar', 'عربية': 'ar', 'انجليزي': 'en', 'انكليزي': 'en' },
+  name: { 'منفذ_العرض': 'viewport', 'وصف': 'description', 'كلمات_مفتاحية': 'keywords', 'مؤلف': 'author', 'لون_الثيم': 'theme-color' },
+  loading: { 'كسول': 'lazy' }
+};
 
-            <div>
-                <label class="block text-xs font-medium mb-1 text-gray-200">صورة الأيقونة المخصصة</label>
-                <input type="file" id="imageInput" accept="image/*" 
-                    class="w-full text-xs text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer">
-            </div>
+R.cssProps = {
+  'لون|لون-النص': 'color', 'خلفية': 'background', 'لون-الخلفية': 'background-color', 'صورة-الخلفية': 'background-image',
+  'حجم-الخلفية': 'background-size', 'موضع-الخلفية': 'background-position', 'تكرار-الخلفية': 'background-repeat',
+  'تثبيت-الخلفية': 'background-attachment', 'قص-الخلفية': 'background-clip',
+  'حجم-الخط': 'font-size', 'نوع-الخط|عائلة-الخط': 'font-family', 'وزن-الخط': 'font-weight', 'نمط-الخط': 'font-style', 'خط': 'font',
+  'محاذاة-النص': 'text-align', 'زخرفة-النص': 'text-decoration', 'تحويل-النص': 'text-transform', 'ظل-النص': 'text-shadow',
+  'مسافة-اول-سطر': 'text-indent', 'قص-النص': 'text-overflow', 'ارتفاع-السطر': 'line-height',
+  'تباعد-الحروف': 'letter-spacing', 'تباعد-الكلمات': 'word-spacing',
+  'عرض': 'width', 'ارتفاع': 'height', 'ادنى-عرض': 'min-width', 'اقصى-عرض': 'max-width',
+  'ادنى-ارتفاع': 'min-height', 'اقصى-ارتفاع': 'max-height',
+  'هامش': 'margin', 'هامش-علوي': 'margin-top', 'هامش-سفلي': 'margin-bottom', 'هامش-ايسر': 'margin-left', 'هامش-ايمن': 'margin-right',
+  'حشو': 'padding', 'حشو-علوي': 'padding-top', 'حشو-سفلي': 'padding-bottom', 'حشو-ايسر': 'padding-left', 'حشو-ايمن': 'padding-right',
+  'حدود': 'border', 'حدود-علوي': 'border-top', 'حدود-سفلي': 'border-bottom', 'حدود-ايسر': 'border-left', 'حدود-ايمن': 'border-right',
+  'استدارة-الحدود|استدارة': 'border-radius', 'لون-الحدود': 'border-color', 'سمك-الحدود': 'border-width',
+  'نمط-الحدود': 'border-style', 'ادمج-الحدود': 'border-collapse', 'تباعد-الحدود': 'border-spacing',
+  'مخطط': 'outline', 'ظل-الصندوق|ظل': 'box-shadow', 'حجم-الصندوق': 'box-sizing',
+  'ظهور': 'display', 'موضع': 'position', 'اعلى': 'top', 'اسفل': 'bottom', 'يسار': 'left', 'يمين': 'right', 'ترتيب-الطبقة': 'z-index',
+  'مرن': 'flex', 'اتجاه-المرن': 'flex-direction', 'التفاف-المرن': 'flex-wrap', 'محاذاة-المحتوى': 'justify-content',
+  'محاذاة-العناصر': 'align-items', 'محاذاة-ذاتية': 'align-self', 'محاذاة-الصفوف': 'align-content', 'فجوة': 'gap',
+  'نمو-المرن': 'flex-grow', 'انكماش-المرن': 'flex-shrink', 'اساس-المرن': 'flex-basis', 'ترتيب': 'order',
+  'شبكة': 'grid', 'اعمدة-الشبكة': 'grid-template-columns', 'صفوف-الشبكة': 'grid-template-rows', 'عمود-الشبكة': 'grid-column',
+  'صف-الشبكة': 'grid-row', 'منطقة-الشبكة': 'grid-area', 'مناطق-الشبكة': 'grid-template-areas',
+  'فيض': 'overflow', 'فيض-افقي': 'overflow-x', 'فيض-عمودي': 'overflow-y', 'شفافية': 'opacity', 'رؤية': 'visibility', 'مؤشر': 'cursor',
+  'انتقال': 'transition', 'مدة-الانتقال': 'transition-duration', 'تاخير-الانتقال': 'transition-delay', 'خاصية-الانتقال': 'transition-property',
+  'تحويل': 'transform', 'حركة': 'animation', 'اسم-الحركة': 'animation-name', 'مدة-الحركة': 'animation-duration',
+  'تاخير-الحركة': 'animation-delay', 'تكرار-الحركة': 'animation-iteration-count', 'توقيت-الحركة': 'animation-timing-function',
+  'اتجاه-الحركة': 'animation-direction', 'وضع-الحركة': 'animation-fill-mode',
+  'اتجاه': 'direction', 'محتوى': 'content', 'عوم': 'float', 'مسح': 'clear', 'نمط-القائمة': 'list-style',
+  'ملاءمة-الكائن': 'object-fit', 'مرشح': 'filter', 'مرشح-الخلفية': 'backdrop-filter', 'مسافات-بيضاء': 'white-space',
+  'كسر-الكلمات': 'word-break', 'احداث-المؤشر': 'pointer-events', 'تحديد-المستخدم': 'user-select', 'تغيير-الحجم': 'resize',
+  'محاذاة-عمودية': 'vertical-align', 'نسبة-الابعاد': 'aspect-ratio', 'سلوك-التمرير': 'scroll-behavior',
+  'تعبئة': 'fill', 'خط-الرسم': 'stroke', 'مصدر': 'src', 'اتجاه-الشاشة': 'orientation', 'تفضيل-الالوان': 'prefers-color-scheme'
+};
+R.colors = {
+  'احمر': 'red', 'ازرق': 'blue', 'اخضر': 'green', 'اصفر': 'yellow', 'ابيض': 'white', 'اسود': 'black', 'رمادي': 'gray',
+  'برتقالي': 'orange', 'بنفسجي': 'purple', 'وردي': 'pink', 'بني': 'brown', 'ذهبي': 'gold', 'فضي': 'silver',
+  'سماوي': 'skyblue', 'تركوازي': 'turquoise', 'كحلي': 'navy', 'بيج': 'beige', 'ارجواني': 'magenta', 'عنابي': 'maroon',
+  'زيتوني': 'olive', 'ليموني': 'lime', 'قرمزي': 'crimson', 'اخضر_فاتح': 'lightgreen', 'ازرق_فاتح': 'lightblue',
+  'رمادي_فاتح': 'lightgray', 'رمادي_غامق': 'darkgray', 'اخضر_غامق': 'darkgreen', 'ازرق_غامق': 'darkblue',
+  'احمر_غامق': 'darkred', 'شفاف': 'transparent', 'لون_حالي': 'currentColor'
+};
+R.cssVals = {
+  'بدون|لا_شيء|بلا': 'none', 'كتلة|بلوك': 'block', 'سطري': 'inline', 'سطري_كتلة': 'inline-block', 'مرن': 'flex', 'شبكة': 'grid',
+  'مطلق': 'absolute', 'نسبي': 'relative', 'ثابت': 'fixed', 'لاصق': 'sticky', 'ساكن': 'static',
+  'وسط': 'center', 'يمين': 'right', 'يسار': 'left', 'اعلى': 'top', 'اسفل': 'bottom',
+  'عريض': 'bold', 'عادي': 'normal', 'مائل': 'italic', 'تسطير': 'underline', 'خط_فوق': 'overline', 'يتوسطه_خط': 'line-through',
+  'متصل': 'solid', 'متقطع': 'dashed', 'منقط': 'dotted', 'مزدوج': 'double', 'مخفي': 'hidden', 'ظاهر': 'visible',
+  'تلقائي': 'auto', 'وراثة': 'inherit', 'صف': 'row', 'عمود': 'column', 'صف_معكوس': 'row-reverse', 'عمود_معكوس': 'column-reverse',
+  'التفاف': 'wrap', 'بدون_التفاف': 'nowrap', 'توزيع_بين': 'space-between', 'توزيع_حول': 'space-around', 'توزيع_متساو': 'space-evenly',
+  'بداية': 'flex-start', 'نهاية': 'flex-end', 'تمديد': 'stretch', 'تغطية': 'cover', 'احتواء': 'contain',
+  'بدون_تكرار': 'no-repeat', 'تكرار': 'repeat', 'تكرار_افقي': 'repeat-x', 'تكرار_عمودي': 'repeat-y',
+  'احرف_كبيرة': 'uppercase', 'احرف_صغيرة': 'lowercase', 'احرف_اولى_كبيرة': 'capitalize', 'خطي': 'linear', 'لانهائي': 'infinite',
+  'تمرير': 'scroll', 'صندوق_الحدود': 'border-box', 'صندوق_المحتوى': 'content-box', 'يد': 'pointer', 'مؤشر_نص': 'text',
+  'ممنوع': 'not-allowed', 'يمين_لشمال': 'rtl', 'شمال_ليمين': 'ltr', 'كلاهما': 'both', 'للامام': 'forwards',
+  'تسهيل': 'ease', 'تسهيل_دخول': 'ease-in', 'تسهيل_خروج': 'ease-out', 'تسهيل_الاثنين': 'ease-in-out',
+  'خط_بدون_ذيل': 'sans-serif', 'خط_بذيل': 'serif', 'خط_ثابت_العرض': 'monospace', 'شفاف': 'transparent'
+};
+R.cssFuncs = {
+  'تدرج-خطي': 'linear-gradient', 'تدرج-دائري': 'radial-gradient', 'تدرج-مخروطي': 'conic-gradient', 'رابط': 'url',
+  'حساب': 'calc', 'متغير': 'var', 'اصغر-قيمة': 'min', 'اكبر-قيمة': 'max', 'تحديد': 'clamp',
+  'ازاحة': 'translate', 'ازاحة-س': 'translateX', 'ازاحة-ص': 'translateY', 'تدوير': 'rotate', 'تكبير': 'scale', 'ميلان': 'skew',
+  'مكرر': 'repeat', 'ادنى-اقصى': 'minmax', 'سطوع': 'brightness', 'تمويه': 'blur', 'تباين': 'contrast'
+};
+R.cssUnits = {
+  'بكسل': 'px', 'نسبة': '%', 'رم': 'rem', 'ام': 'em', 'ثانية': 's', 'ملي_ثانية|ملث': 'ms', 'درجة': 'deg',
+  'عرض_الشاشة': 'vw', 'ارتفاع_الشاشة': 'vh', 'نقطة': 'pt', 'جزء': 'fr', 'دورة': 'turn'
+};
+R.cssPseudo = {
+  'تمرير': 'hover', 'تركيز': 'focus', 'نشط': 'active', 'زيارة': 'visited', 'اول-ابن': 'first-child', 'اخر-ابن': 'last-child',
+  'ابن-رقم': 'nth-child', 'ليس': 'not', 'محدد': 'checked', 'معطل': 'disabled', 'فارغ': 'empty', 'جذر': 'root',
+  'قبل': 'before', 'بعد': 'after', 'اول-حرف': 'first-letter', 'اول-سطر': 'first-line', 'تحديد': 'selection',
+  'نص-توضيحي': 'placeholder', 'داخل-التركيز': 'focus-within', 'مطلوب': 'required', 'هدف': 'target',
+  'اول-نوع': 'first-of-type', 'اخر-نوع': 'last-of-type', 'يحتوي': 'has', 'ضمن': 'is'
+};
+R.cssAt = {
+  'وسائط': 'media', 'حركة|اطارات-رئيسية': 'keyframes', 'استيراد': 'import', 'خط|خط-مخصص': 'font-face',
+  'دعم': 'supports', 'ترميز': 'charset', 'صفحة': 'page', 'طبقة': 'layer', 'حاوية': 'container'
+};
+R.cssMedia = {
+  'و': 'and', 'شاشة': 'screen', 'طباعة': 'print', 'عمودي': 'portrait', 'افقي': 'landscape', 'داكن': 'dark', 'فاتح': 'light'
+};
+R.jsKw = {
+  'ثابت': 'const', 'متغير': 'let', 'متغير_قديم|متغير_عام': 'var', 'دالة|وظيفة': 'function', 'ارجع|ارجاع': 'return',
+  'اذا': 'if', 'والا|غير_ذلك': 'else', 'لكل|من_اجل': 'for', 'بينما': 'while', 'افعل': 'do', 'توقف|اكسر': 'break',
+  'استمر|تابع': 'continue', 'تبديل': 'switch', 'حالة': 'case', 'افتراضي': 'default', 'جديد': 'new', 'هذا|هذه': 'this',
+  'صحيح|صح': 'true', 'خطا|غلط': 'false', 'فارغ|لاشيء': 'null', 'غير_معرف': 'undefined', 'نوع': 'typeof',
+  'في': 'in', 'من': 'of', 'حاول': 'try', 'امسك|التقط': 'catch', 'اخيرا': 'finally', 'ارمي|ارم': 'throw',
+  'صنف': 'class', 'يمتد': 'extends', 'منشئ': 'constructor', 'الاب': 'super', 'استيراد': 'import', 'تصدير': 'export',
+  'احذف': 'delete', 'نسخة_من': 'instanceof', 'انتظر': 'await', 'غير_متزامن': 'async', 'ساكن': 'static', 'انتج': 'yield'
+};
+R.jsGlobals = {
+  'وثيقة|مستند': 'document', 'نافذة': 'window', 'وحدة_التحكم': 'console', 'اطبع': 'console.log', 'تنبيه': 'alert',
+  'تاكيد|اكد': 'confirm', 'اسال|ادخل': 'prompt', 'ضبط_مهلة|بعد_مهلة': 'setTimeout', 'ضبط_فاصل|كل_فاصل': 'setInterval',
+  'الغاء_مهلة': 'clearTimeout', 'الغاء_فاصل': 'clearInterval', 'جلب': 'fetch', 'رياضيات': 'Math', 'تاريخ': 'Date',
+  'مصفوفة': 'Array', 'كائن': 'Object', 'سلسلة': 'String', 'عدد': 'Number', 'منطقي': 'Boolean', 'وعد': 'Promise',
+  'خريطة': 'Map', 'مجموعة': 'Set', 'تخزين_محلي': 'localStorage', 'تخزين_الجلسة': 'sessionStorage',
+  'حلل_عدد_صحيح': 'parseInt', 'حلل_عدد_عشري': 'parseFloat', 'ليس_رقم': 'isNaN', 'حدث': 'event', 'متصفح': 'navigator',
+  'موقع': 'location', 'تاريخ_التصفح': 'history', 'اطار_حركة': 'requestAnimationFrame'
+};
+R.jsMembers = {
+  'عنصر_بالمعرف|احصل_عنصر_بالمعرف': 'getElementById', 'عناصر_بالفئة': 'getElementsByClassName', 'عناصر_بالوسم': 'getElementsByTagName',
+  'استعلام|اختر': 'querySelector', 'استعلام_الكل|اختر_الكل': 'querySelectorAll', 'انشئ_عنصر': 'createElement',
+  'انشئ_نص': 'createTextNode', 'اضف_ابن': 'appendChild', 'ازل_ابن': 'removeChild', 'اضف_قبل': 'prepend', 'اضف_بعد': 'append',
+  'ازل': 'remove', 'اضف_مستمع|عند': 'addEventListener', 'ازل_مستمع': 'removeEventListener',
+  'نص_داخلي': 'innerText', 'محتوى_نصي': 'textContent', 'اتش_تي_ام_ال_داخلي|html_داخلي': 'innerHTML',
+  'قيمة': 'value', 'نمط': 'style', 'قائمة_الفئات': 'classList', 'اضف': 'add', 'بدل': 'toggle', 'يحتوي': 'contains',
+  'طول|الطول': 'length', 'ادفع': 'push', 'اسحب': 'pop', 'انزع': 'shift', 'ادرج_بالبداية': 'unshift', 'خريطة': 'map',
+  'رشح': 'filter', 'اختزل': 'reduce', 'لكل_عنصر': 'forEach', 'جد': 'find', 'جد_فهرس': 'findIndex', 'بعض': 'some',
+  'كل': 'every', 'يشمل': 'includes', 'اربط': 'join', 'قسم': 'split', 'شريحة': 'slice', 'وصل': 'splice',
+  'استبدل': 'replace', 'استبدل_الكل': 'replaceAll', 'فهرس': 'indexOf', 'رتب': 'sort', 'اعكس': 'reverse',
+  'حروف_كبيرة': 'toUpperCase', 'حروف_صغيرة': 'toLowerCase', 'قص_الفراغات|قص': 'trim', 'يبدا_ب': 'startsWith',
+  'ينتهي_ب': 'endsWith', 'سجل': 'log', 'خطا': 'error', 'تحذير': 'warn', 'معلومات': 'info', 'عشوائي': 'random',
+  'ارضي|ارضية': 'floor', 'سقف': 'ceil', 'قرب': 'round', 'اكبر': 'max', 'اصغر': 'min', 'قوة': 'pow', 'جذر': 'sqrt',
+  'مطلق': 'abs', 'الان': 'now', 'احصل_السنة': 'getFullYear', 'احصل_الشهر': 'getMonth', 'احصل_اليوم': 'getDate',
+  'احصل_الساعة': 'getHours', 'احصل_الدقيقة': 'getMinutes', 'احصل_الثانية': 'getSeconds',
+  'منع_الافتراضي': 'preventDefault', 'ايقاف_الانتشار': 'stopPropagation', 'هدف': 'target', 'ثم': 'then',
+  'حول_الى_نص': 'stringify', 'حلل': 'parse', 'الى_نص': 'toString', 'الى_عدد_ثابت': 'toFixed', 'ركز': 'focus', 'انقر': 'click',
+  'مصدر': 'src', 'رابط': 'href', 'معرف': 'id', 'اسم_الفئة': 'className', 'عين_خاصية': 'setAttribute',
+  'احصل_خاصية': 'getAttribute', 'ازل_خاصية': 'removeAttribute', 'محدد': 'checked', 'معطل': 'disabled',
+  'ابناء': 'children', 'العنصر_الاب': 'parentElement', 'العنصر_التالي': 'nextElementSibling',
+  'احصل_مخزن': 'getItem', 'احفظ_مخزن': 'setItem', 'ازل_مخزن': 'removeItem', 'امسح_مخزن|امسح': 'clear',
+  'مفاتيح': 'keys', 'قيم': 'values', 'مدخلات': 'entries', 'جسم': 'body', 'راس': 'head', 'عنصر_الجذر': 'documentElement',
+  'مفتاح': 'key', 'رمز_المفتاح': 'code', 'ارسل': 'send', 'نص_الاستجابة': 'text', 'حالة': 'status',
+  'امسك': 'catch', 'اخيرا': 'finally', 'احذف': 'delete', 'احصل': 'get', 'عين': 'set', 'يملك': 'has', 'حجم': 'size',
+  'اعادة_تحميل': 'reload', 'قرب_الى': 'round',
+  'لون': 'color', 'لون_الخلفية': 'backgroundColor', 'حجم_الخط': 'fontSize', 'عرض': 'width', 'ارتفاع': 'height',
+  'ظهور': 'display', 'هامش': 'margin', 'حشو': 'padding', 'شفافية': 'opacity', 'خلفية': 'background', 'حدود': 'border',
+  'موضع': 'position', 'يسار': 'left', 'يمين': 'right', 'اعلى': 'top', 'اسفل': 'bottom', 'تحويل': 'transform',
+  'انتقال': 'transition', 'مؤشر': 'cursor', 'محاذاة_النص': 'textAlign', 'وزن_الخط': 'fontWeight',
+  'استدارة_الحدود': 'borderRadius', 'ظل_الصندوق': 'boxShadow'
+};
+R.jsEvents = {
+  'نقر': 'click', 'تغيير': 'change', 'ادخال': 'input', 'ارسال': 'submit', 'تحميل': 'load', 'تحميل_المحتوى': 'DOMContentLoaded',
+  'ضغط_مفتاح': 'keydown', 'رفع_مفتاح': 'keyup', 'مرور_الماوس': 'mouseover', 'خروج_الماوس': 'mouseout',
+  'تمرير': 'scroll', 'تغيير_الحجم': 'resize', 'لمس': 'touchstart', 'نقر_مزدوج': 'dblclick', 'تركيز': 'focus', 'فقدان_تركيز': 'blur'
+};
 
-            <button onclick="launchCustomApp()" 
-                class="w-full py-3.5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 font-bold rounded-xl transition duration-200 shadow-lg shadow-pink-600/30 text-sm">
-                فتح التطبيق مباشرة 🚀
-            </button>
-        </div>
+const TAGS = mk(R.tags), ATTRS = mk(R.attrs);
+const ATTRVALS = {}; Object.keys(R.attrVals).forEach(k => ATTRVALS[k] = mk(R.attrVals[k]));
+const PROPS = mk(R.cssProps);
+const VALS = mk(Object.assign({}, R.cssVals, R.colors));
+const FUNCS = mk(R.cssFuncs), UNITS = mk(R.cssUnits), PSEUDO = mk(R.cssPseudo), ATS = mk(R.cssAt);
+const MEDIA = mk(R.cssMedia);
+const JSKW = mk(R.jsKw), JSG = mk(R.jsGlobals), JSM = mk(R.jsMembers), JSEV = mk(R.jsEvents);
+const SELTAGS = mk(Object.assign({ 'من': 'from', 'الى': 'to' }, R.tags));
+const VOID = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr']);
+const EN_TAGS = new Set(Object.values(R.tags));
+const EN_ATTRS = new Set(Object.values(R.attrs));
+const EN_KW = new Set('const let var function return if else for while do break continue switch case default new this true false null undefined typeof in of try catch finally throw class extends super import export delete instanceof await async static yield'.split(' '));
+const EN_GL = new Set('document window console alert confirm prompt setTimeout setInterval fetch Math Date Array Object String Number Boolean Promise Map Set localStorage sessionStorage JSON parseInt parseFloat isNaN event navigator location history'.split(' '));
 
-        <!-- المعاينة -->
-        <div class="mt-6 pt-6 border-t border-white/10 flex flex-col items-center">
-            <span class="text-xs text-gray-400 mb-3">معاينة الأيقونة</span>
-            <div class="ios-icon mb-2">
-                <img id="previewImg" src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="Icon">
-            </div>
-            <span id="previewName" class="text-xs font-bold text-white">تطبيقي</span>
-        </div>
-    </div>
+function tagEn(name) { const v = TAGS.get(norm(name)); return v || name; }
+function attrEn(name) {
+  const n = norm(name);
+  const v = ATTRS.get(n);
+  if (v) return v;
+  if (n.startsWith('بيانات-')) return 'data-' + name.slice(7);
+  if (n.startsWith('وصول-')) return 'aria-' + name.slice(5);
+  return name;
+}
 
-    <script>
-        const appNameInput = document.getElementById('appName');
-        const packageInput = document.getElementById('packageInput');
-        const imageInput = document.getElementById('imageInput');
-        const previewName = document.getElementById('previewName');
-        const previewImg = document.getElementById('previewImg');
+/* ============ تصحيح علامات الترقيم العربية ============ */
+function fixPunct(src, js) {
+  const re = js
+    ? /(\/\/[^\n]*|\/\*[\s\S]*?\*\/|"(?:[^"\\\n]|\\.)*"|'(?:[^'\\\n]|\\.)*'|`(?:[^`\\]|\\.)*`)/
+    : /(\/\*[\s\S]*?\*\/|"(?:[^"\\\n]|\\.)*"|'(?:[^'\\\n]|\\.)*')/;
+  return src.split(re).map((p, i) => i % 2 ? p :
+    p.replace(/،/g, ',').replace(/؛/g, ';').replace(/؟/g, '?').replace(/٪/g, '%')
+      .replace(/(?<![\u0600-\u06FF\w$])[٠-٩]+(?:\.[٠-٩]+)?/g, d2a)).join('');
+}
 
-        appNameInput.addEventListener('input', (e) => {
-            previewName.textContent = e.target.value || 'تطبيق';
-        });
-
-        imageInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    previewImg.src = event.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        function launchCustomApp() {
-            const pkg = packageInput.value.trim();
-            if (!pkg) {
-                alert('يمعود اكتب حزمة التطبيق أول شي (Package Name)!');
-                return;
-            }
-
-            // استخدام طريقة الـ Intent المباشرة بدون تحويل إجباري لمتجر بلي
-            const intentUrl = `intent://launch#Intent;package=${pkg};scheme=https;end`;
-            window.location.href = intentUrl;
+/* ============ تحويل JavaScript ============ */
+const JID = /[\u0600-\u06FF$A-Za-z_][\u0600-\u06FF$\w]*/y;
+function jsConv(s) {
+  let out = '', i = 0;
+  const n = s.length;
+  while (i < n) {
+    const c = s[i], d = s[i + 1];
+    if (c === '/' && d === '/') { let j = s.indexOf('\n', i); if (j < 0) j = n; out += s.slice(i, j); i = j; continue; }
+    if (c === '/' && d === '*') { let j = s.indexOf('*/', i + 2); j = j < 0 ? n : j + 2; out += s.slice(i, j); i = j; continue; }
+    if (c === '"' || c === "'") {
+      let j = i + 1;
+      while (j < n && s[j] !== c && s[j] !== '\n') { if (s[j] === '\\') j++; j++; }
+      let str = s.slice(i, j + 1);
+      if (/addEventListener\s*\(\s*$/.test(out.slice(-40))) {
+        const ev = JSEV.get(norm(str.slice(1, -1)));
+        if (ev) str = c + ev + c;
+      }
+      out += str; i = j + 1; continue;
+    }
+    if (c === '`') {
+      out += '`'; i++;
+      while (i < n && s[i] !== '`') {
+        if (s[i] === '\\') { out += s.slice(i, i + 2); i += 2; continue; }
+        if (s[i] === '$' && s[i + 1] === '{') {
+          let depth = 1, j = i + 2;
+          while (j < n && depth) { if (s[j] === '{') depth++; else if (s[j] === '}') depth--; j++; }
+          out += '${' + jsConv(s.slice(i + 2, j - 1)) + '}'; i = j; continue;
         }
-    </script>
+        out += s[i++];
+      }
+      out += '`'; i++; continue;
+    }
+    if (c >= '0' && c <= '9') {
+      const m = /[0-9][\w.]*/y; m.lastIndex = i; const r = m.exec(s);
+      out += r[0]; i += r[0].length; continue;
+    }
+    JID.lastIndex = i;
+    const m = JID.exec(s);
+    if (m) {
+      const w = m[0], key = norm(w);
+      let k = i - 1; while (k >= 0 && /\s/.test(s[k])) k--;
+      const prev = k >= 0 ? s[k] : '';
+      let e = i + w.length; while (e < n && /[ \t]/.test(s[e])) e++;
+      const next = e < n ? s[e] : '';
+      let rep = w;
+      if (prev === '.' && s[k - 1] !== '.') {
+        rep = JSM.get(key) || w;
+      } else if ((prev === '{' || prev === ',') && next === ':' && key !== 'افتراضي') {
+        rep = JSM.get(key) || w;
+      } else {
+        rep = JSKW.get(key) || JSG.get(key) || w;
+      }
+      out += rep; i += w.length; continue;
+    }
+    out += c; i++;
+  }
+  return out;
+}
+function convJS(src) { return jsConv(fixPunct(src, true)); }
+
+/* ============ تحويل CSS ============ */
+function convValue(v, extra) {
+  let out = '', i = 0;
+  const n = v.length;
+  while (i < n) {
+    const c = v[i];
+    if (c === '"' || c === "'") {
+      let j = i + 1; while (j < n && v[j] !== c) { if (v[j] === '\\') j++; j++; }
+      out += v.slice(i, j + 1); i = j + 1; continue;
+    }
+    if (c === '#') {
+      const m = /#[0-9a-zA-Z]*/y; m.lastIndex = i; const r = m.exec(v);
+      out += r[0]; i += r[0].length; continue;
+    }
+    if (c === '!') {
+      const m = /!\s*(مهم|important)/y; m.lastIndex = i; const r = m.exec(v);
+      if (r) { out += '!important'; i += r[0].length; continue; }
+    }
+    if (/[0-9.]/.test(c) && /[0-9]/.test(c === '.' ? (v[i + 1] || '') : c)) {
+      const m = /([0-9]*\.?[0-9]+)(\s*)([\u0600-\u06FFA-Za-z%_]+)?/y; m.lastIndex = i;
+      const r = m.exec(v);
+      if (r[3]) {
+        const u = UNITS.get(norm(r[3]));
+        if (u) { out += r[1] + u; i += r[0].length; continue; }
+        if (r[2] === '') { out += r[0]; i += r[0].length; continue; }
+        out += r[1]; i += r[1].length; continue;
+      }
+      out += r[1]; i += r[1].length; continue;
+    }
+    if (/[\u0600-\u06FFA-Za-z_]/.test(c) || (c === '-' && /[\u0600-\u06FFA-Za-z_-]/.test(v[i + 1] || ''))) {
+      const m = /-{0,2}[\u0600-\u06FFA-Za-z_][\u0600-\u06FF\w-]*/y; m.lastIndex = i;
+      const r = m.exec(v);
+      if (!r) { out += c; i++; continue; }
+      const w = r[0], key = norm(w);
+      i += w.length;
+      if (w.startsWith('--')) { out += w; continue; }
+      if (v[i] === '(') {
+        const f = FUNCS.get(key);
+        if (f) {
+          out += f;
+          if (f === 'url') {
+            let j = v.indexOf(')', i); if (j < 0) j = n;
+            out += v.slice(i, j); i = j;
+          }
+          continue;
+        }
+        out += w; continue;
+      }
+      out += (extra && extra.get(key)) || VALS.get(key) || w;
+      continue;
+    }
+    out += c; i++;
+  }
+  return out;
+}
+function convSelector(sel) {
+  return sel.replace(/(\[[^\]]*\])|(::?)([\u0600-\u06FFA-Za-z-][\u0600-\u06FF\w-]*)|([.#])([\u0600-\u06FFA-Za-z_-][\u0600-\u06FF\w-]*)|([\u0600-\u06FFA-Za-z_-][\u0600-\u06FF\w-]*)/g,
+    (m, br, pc, pn, cc, cn, id) => {
+      if (br) {
+        const inner = br.slice(1, -1);
+        const ix = inner.search(/[~|^$*]?=/);
+        if (ix < 0) return '[' + attrEn(inner.trim()) + ']';
+        const name = attrEn(inner.slice(0, ix).trim());
+        const mm = /^([~|^$*]?=)\s*(["']?)(.*?)\2\s*$/.exec(inner.slice(ix));
+        if (!mm) return br;
+        let val = mm[3];
+        if (ATTRVALS[name]) val = ATTRVALS[name].get(norm(val)) || val;
+        return '[' + name + mm[1] + mm[2] + val + mm[2] + ']';
+      }
+      if (pc) return pc + (PSEUDO.get(norm(pn)) || pn);
+      if (cc) return m;
+      return SELTAGS.get(norm(id)) || id;
+    });
+}
+function peelComments(body) {
+  let pre = '';
+  while (body.startsWith('/*')) {
+    const e = body.indexOf('*/'); if (e < 0) break;
+    pre += body.slice(0, e + 2); body = body.slice(e + 2);
+    const w = /^\s*/.exec(body)[0]; pre += w; body = body.slice(w.length);
+  }
+  return [pre, body];
+}
+function convMedia(rest) {
+  const extra = new Map([...MEDIA, ...PROPS]);
+  return convValue(rest, extra);
+}
+function convAtPrelude(body) {
+  const m = /^@([^\s({;]+)([\s\S]*)$/.exec(body);
+  if (!m) return body;
+  const en = ATS.get(norm(m[1])) || m[1];
+  let rest = m[2];
+  if (en === 'media' || en === 'supports') rest = convMedia(rest);
+  else if (en === 'import') rest = convValue(rest);
+  return '@' + en + rest;
+}
+function convDeclOrAt(chunk) {
+  const m = /^(\s*)([\s\S]*?)(\s*)$/.exec(chunk);
+  if (!m[2]) return chunk;
+  const [cm, body] = peelComments(m[2]);
+  if (!body) return chunk;
+  if (body[0] === '@') return m[1] + cm + convAtPrelude(body) + m[3];
+  const c = body.indexOf(':');
+  if (c < 0) return chunk;
+  const propRaw = body.slice(0, c), prop = propRaw.trim();
+  const en = prop.startsWith('--') ? prop : (PROPS.get(norm(prop)) || prop);
+  return m[1] + cm + propRaw.replace(prop, en) + ':' + convValue(body.slice(c + 1)) + m[3];
+}
+function convPrelude(chunk) {
+  const m = /^(\s*)([\s\S]*?)(\s*)$/.exec(chunk);
+  if (!m[2]) return chunk;
+  const [cm, body] = peelComments(m[2]);
+  if (body[0] === '@') return m[1] + cm + convAtPrelude(body) + m[3];
+  return m[1] + cm + convSelector(body) + m[3];
+}
+function cssBody(s, i, inner) {
+  let out = '';
+  const n = s.length;
+  while (i < n) {
+    let j = i, dp = 0, term = '';
+    while (j < n) {
+      const ch = s[j];
+      if (ch === '/' && s[j + 1] === '*') { const e = s.indexOf('*/', j + 2); j = e < 0 ? n : e + 2; continue; }
+      if (ch === '"' || ch === "'") { let e = j + 1; while (e < n && s[e] !== ch) { if (s[e] === '\\') e++; e++; } j = e + 1; continue; }
+      if (ch === '(') dp++; else if (ch === ')') dp--;
+      else if (dp <= 0 && (ch === ';' || ch === '{' || ch === '}')) { term = ch; break; }
+      j++;
+    }
+    const chunk = s.slice(i, j);
+    if (term === '}') {
+      out += convDeclOrAt(chunk);
+      if (inner) return { out, i: j + 1 };
+      out += '}'; i = j + 1; continue;
+    }
+    if (term === '{') {
+      out += convPrelude(chunk) + '{';
+      const r = cssBody(s, j + 1, true);
+      out += r.out + '}'; i = r.i; continue;
+    }
+    if (term === ';') { out += convDeclOrAt(chunk) + ';'; i = j + 1; continue; }
+    out += convDeclOrAt(chunk); i = n; break;
+  }
+  return { out, i: n };
+}
+function convCSS(src) { return cssBody(fixPunct(src, false), 0, false).out; }
+
+/* ============ تحويل HTML ============ */
+const RE_TAG = /<(\/?)([\u0600-\u06FFA-Za-z][^\s>\/<]*)/y;
+const RE_DECL = /<!([^\s>\-][^\s>]*)/y;
+function parseTag(src, i) {
+  RE_TAG.lastIndex = i;
+  const m = RE_TAG.exec(src);
+  if (!m) return null;
+  const n = src.length;
+  let p = RE_TAG.lastIndex, closed = false;
+  const toks = [];
+  while (p < n) {
+    let s = p; while (p < n && /\s/.test(src[p])) p++;
+    if (p > s) toks.push({ k: 'ws', s: src.slice(s, p) });
+    if (p >= n) break;
+    const ch = src[p];
+    if (ch === '>') { toks.push({ k: 'end', s: '>' }); p++; closed = true; break; }
+    if (ch === '/' && src[p + 1] === '>') { toks.push({ k: 'end', s: '/>' }); p += 2; closed = true; break; }
+    if (ch === '<') break;
+    let a = p;
+    while (p < n && !/[\s=>]/.test(src[p]) && !(src[p] === '/' && src[p + 1] === '>') && src[p] !== '<') p++;
+    if (p === a) { toks.push({ k: 'junk', s: src[p] }); p++; continue; }
+    toks.push({ k: 'attr', s: src.slice(a, p) });
+    let q = p; while (q < n && /\s/.test(src[q])) q++;
+    if (src[q] === '=') {
+      if (q > p) toks.push({ k: 'ws', s: src.slice(p, q) });
+      toks.push({ k: 'eq', s: '=' }); q++;
+      const w = q; while (q < n && /\s/.test(src[q])) q++;
+      if (q > w) toks.push({ k: 'ws', s: src.slice(w, q) });
+      if (src[q] === '"' || src[q] === "'") {
+        const quote = src[q]; let e = src.indexOf(quote, q + 1); const open = e < 0; if (open) e = n;
+        toks.push({ k: 'val', s: src.slice(q + 1, e), q: quote, open });
+        q = open ? n : e + 1;
+      } else {
+        let e = q; while (e < n && !/[\s>]/.test(src[e])) e++;
+        toks.push({ k: 'val', s: src.slice(q, e), q: '', open: false }); q = e;
+      }
+      p = q;
+    }
+  }
+  return { i: p, close: m[1] === '/', name: m[2], toks, closed };
+}
+function findClose(src, from, en) {
+  let k = from;
+  while ((k = src.indexOf('</', k)) >= 0) {
+    const m = /^<\/\s*([^\s>]+)/.exec(src.slice(k, k + 60));
+    if (m && tagEn(m[1]) === en) return k;
+    k += 2;
+  }
+  return -1;
+}
+function convAttrVal(aen, val) {
+  if (aen === 'style') return cssBody(fixPunct(val, false), 0, false).out;
+  if (/^on[a-z]+$/.test(aen)) return convJS(val);
+  const map = ATTRVALS[aen];
+  if (map) return map.get(norm(val)) || val;
+  return val;
+}
+function convHTML(src) {
+  let out = '', i = 0;
+  const n = src.length;
+  while (i < n) {
+    const lt = src.indexOf('<', i);
+    if (lt < 0) { out += src.slice(i); break; }
+    out += src.slice(i, lt); i = lt;
+    if (src.startsWith('<!--', i)) { let j = src.indexOf('-->', i + 4); j = j < 0 ? n : j + 3; out += src.slice(i, j); i = j; continue; }
+    RE_DECL.lastIndex = i;
+    const dm = RE_DECL.exec(src);
+    if (dm) {
+      const k = norm(dm[1]);
+      const word = (k === 'مستند' || k === 'نوع-المستند' || k === 'doctype') ? 'DOCTYPE' : dm[1];
+      out += '<!' + word; i += 2 + dm[1].length; continue;
+    }
+    const t = parseTag(src, i);
+    if (!t) { out += '<'; i++; continue; }
+    const en = tagEn(t.name);
+    let buf = '<' + (t.close ? '/' : '') + en, cur = '';
+    for (const k of t.toks) {
+      if (k.k === 'attr') { cur = attrEn(k.s); buf += cur; }
+      else if (k.k === 'val') buf += k.q + convAttrVal(cur, k.s) + (k.open ? '' : k.q);
+      else buf += k.s;
+    }
+    out += buf; i = t.i;
+    const last = t.toks[t.toks.length - 1];
+    const selfClosed = last && last.s === '/>';
+    if (!t.close && t.closed && !selfClosed && (en === 'style' || en === 'script')) {
+      const c = findClose(src, i, en);
+      const end = c < 0 ? n : c;
+      const body = src.slice(i, end);
+      if (en === 'style') out += convCSS(body);
+      else if (/type\s*=\s*["']?(application\/(ld\+)?json|text\/template|importmap)/i.test(buf)) out += body;
+      else out += convJS(body);
+      i = end;
+    }
+  }
+  return out;
+}
+
+/* ============ واجهة التحويل ============ */
+function kindOf(name, mode) {
+  if (mode && mode !== 'auto') return mode;
+  const m = /\.([a-z0-9]+)$/i.exec(name || '');
+  const e = m ? m[1].toLowerCase() : '';
+  if (e === 'html' || e === 'htm') return 'html';
+  if (e === 'css') return 'css';
+  if (e === 'js' || e === 'mjs') return 'js';
+  return 'text';
+}
+function convert(text, kind) {
+  if (kind === 'html') return convHTML(text);
+  if (kind === 'css') return convCSS(text);
+  if (kind === 'js') return convJS(text);
+  return null;
+}
+
+/* ============ التلوين ============ */
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const sp = (c, t) => '<span class="' + c + '">' + esc(t) + '</span>';
+
+const JSRE = /(\/\/[^\n]*|\/\*[\s\S]*?(?:\*\/|$))|("(?:[^"\\\n]|\\.)*"?|'(?:[^'\\\n]|\\.)*'?|`(?:[^`\\]|\\.)*`?)|([0-9][\w.]*|[٠-٩]+)|([\u0600-\u06FF$A-Za-z_][\u0600-\u06FF$\w]*)|([\s\S])/g;
+function hlJS(src) {
+  let out = '';
+  src.replace(JSRE, (m, cm, st, nm, id, ot, off) => {
+    if (cm) out += sp('c-cm', cm);
+    else if (st) out += sp('c-st', st);
+    else if (nm) out += sp('c-nm', nm);
+    else if (id) {
+      const key = norm(id);
+      let k = off - 1; while (k >= 0 && /\s/.test(src[k])) k--;
+      let cls = '';
+      if (k >= 0 && src[k] === '.') cls = JSM.has(key) ? 'c-fn' : '';
+      else if (JSKW.has(key) || EN_KW.has(id)) cls = 'c-kw';
+      else if (JSG.has(key) || EN_GL.has(id)) cls = 'c-gl';
+      else if (src[off + id.length] === '(') cls = 'c-fn';
+      out += cls ? sp(cls, id) : esc(id);
+    } else out += esc(ot);
+    return '';
+  });
+  return out;
+}
+function hlVal(v) {
+  return v.replace(/("[^"]*"|'[^']*')|(#[0-9a-zA-Z]+)|([0-9٠-٩]*\.?[0-9٠-٩]+[\u0600-\u06FFA-Za-z%_]*)|(!\s*[\u0600-\u06FFA-Za-z]+)|([\u0600-\u06FFA-Za-z_-][\u0600-\u06FF\w-]*)|([\s\S])/g,
+    (m, st, hx, nm, im, id, ot, off) => {
+      if (st) return sp('c-st', st);
+      if (hx || nm) return sp('c-nm', m);
+      if (im) return sp('c-kw', m);
+      if (id) {
+        const key = norm(id);
+        if (v[off + id.length] === '(') return sp('c-fn', id);
+        return VALS.has(key) ? sp('c-vl', id) : esc(id);
+      }
+      return esc(ot);
+    });
+}
+function hlDecl(p) {
+  const m = /^(\s*)([^:]*?)(\s*)(:)([\s\S]*)$/.exec(p);
+  if (!m) return hlVal(p);
+  const known = PROPS.has(norm(m[2])) || m[2].startsWith('--') || /^[a-z-]+$/.test(m[2]);
+  return m[1] + sp(known ? 'c-pr' : 'c-pu', m[2]) + m[3] + sp('c-pn', ':') + hlVal(m[5]);
+}
+function hlSel(p) {
+  return p.replace(/(@[^\s({]+)|(\[[^\]]*\])|(::?[\u0600-\u06FFA-Za-z-][\u0600-\u06FF\w-]*)|([.][\u0600-\u06FFA-Za-z_-][\u0600-\u06FF\w-]*)|(#[\u0600-\u06FFA-Za-z_-][\u0600-\u06FF\w-]*)|([\u0600-\u06FFA-Za-z_-][\u0600-\u06FF\w-]*)|([\s\S])/g,
+    (m, at, br, ps, cl, id, tg, ot) => {
+      if (at) return sp('c-kw', at);
+      if (br) return sp('c-at', br);
+      if (ps) return sp('c-ps', ps);
+      if (cl) return sp('c-cl', cl);
+      if (id) return sp('c-id', id);
+      if (tg) return SELTAGS.has(norm(tg)) || EN_TAGS.has(tg) ? sp('c-tg', tg) : esc(tg);
+      return esc(ot);
+    });
+}
+function hlCSS(src) {
+  let out = '';
+  const re = /(\/\*[\s\S]*?(?:\*\/|$))|("(?:[^"\\\n]|\\.)*"?|'(?:[^'\\\n]|\\.)*'?)|([{}])|([^{}"'\/]+|\/)/g;
+  let m;
+  while ((m = re.exec(src))) {
+    if (m[1]) out += sp('c-cm', m[1]);
+    else if (m[2]) out += sp('c-st', m[2]);
+    else if (m[3]) out += sp('c-pn', m[3]);
+    else {
+      const next = src[re.lastIndex];
+      const parts = m[4].split(/(;)/);
+      for (let k = 0; k < parts.length; k++) {
+        const p = parts[k];
+        if (p === ';') { out += sp('c-pn', ';'); continue; }
+        out += (k === parts.length - 1 && next === '{') ? hlSel(p) : hlDecl(p);
+      }
+    }
+  }
+  return out;
+}
+function hlHTML(src) {
+  let out = '', i = 0;
+  const n = src.length;
+  while (i < n) {
+    const lt = src.indexOf('<', i);
+    if (lt < 0) { out += esc(src.slice(i)); break; }
+    out += esc(src.slice(i, lt)); i = lt;
+    if (src.startsWith('<!--', i)) { let j = src.indexOf('-->', i + 4); j = j < 0 ? n : j + 3; out += sp('c-cm', src.slice(i, j)); i = j; continue; }
+    RE_DECL.lastIndex = i;
+    const dm = RE_DECL.exec(src);
+    if (dm) {
+      let j = src.indexOf('>', i); j = j < 0 ? n : j + 1;
+      out += sp('c-pn', '<!') + sp('c-kw', dm[1]) + esc(src.slice(i + 2 + dm[1].length, j)); i = j; continue;
+    }
+    const t = parseTag(src, i);
+    if (!t) { out += '&lt;'; i++; continue; }
+    const en = tagEn(t.name);
+    const known = TAGS.has(norm(t.name)) || EN_TAGS.has(t.name.toLowerCase());
+    out += sp('c-pn', '<' + (t.close ? '/' : '')) + sp(known ? 'c-tg' : 'c-tu', t.name);
+    for (const k of t.toks) {
+      if (k.k === 'ws') out += k.s;
+      else if (k.k === 'attr') {
+        const a = attrEn(k.s);
+        out += sp(a !== k.s || EN_ATTRS.has(k.s.toLowerCase()) || /^(data|aria)-/.test(k.s) ? 'c-at' : 'c-au', k.s);
+      } else if (k.k === 'eq') out += sp('c-pn', '=');
+      else if (k.k === 'val') out += sp('c-st', k.q + k.s + (k.open ? '' : k.q));
+      else out += sp('c-pn', k.s);
+    }
+    i = t.i;
+    const last = t.toks[t.toks.length - 1];
+    const selfClosed = last && last.s === '/>';
+    if (!t.close && t.closed && !selfClosed && (en === 'style' || en === 'script')) {
+      const c = findClose(src, i, en);
+      const end = c < 0 ? n : c;
+      const body = src.slice(i, end);
+      out += en === 'style' ? hlCSS(body) : hlJS(body);
+      i = end;
+    }
+  }
+  return out;
+}
+function highlight(text, kind) {
+  if (text.length > 200000) return esc(text);
+  if (kind === 'html') return hlHTML(text);
+  if (kind === 'css') return hlCSS(text);
+  if (kind === 'js') return hlJS(text);
+  return esc(text);
+}
+
+/* ============ تنسيق ============ */
+function reindent(src, kind) {
+  const lines = src.replace(/\r/g, '').split('\n');
+  let depth = 0;
+  const out = [];
+  for (const raw of lines) {
+    const t = raw.trim();
+    if (!t) { out.push(''); continue; }
+    let delta = (t.match(/\{/g) || []).length - (t.match(/\}/g) || []).length;
+    if (kind === 'html') {
+      (t.match(/<\/?[^\s>\/!?][^>]*>/g) || []).forEach(tag => {
+        const m = /^<(\/?)([^\s>\/]+)/.exec(tag);
+        const en = tagEn(m[2]);
+        if (m[1]) delta--;
+        else if (!VOID.has(en) && !/\/>$/.test(tag)) delta++;
+      });
+    } else {
+      delta += (t.match(/[\[(]/g) || []).length - (t.match(/[\])]/g) || []).length;
+    }
+    const lead = /^(<\/|\}|\)|\])/.test(t) ? 1 : 0;
+    out.push('  '.repeat(Math.max(0, depth - lead)) + t);
+    depth = Math.max(0, depth + delta);
+  }
+  return out.join('\n');
+}
+
+/* ============ سياق الإكمال التلقائي ============ */
+function contextAt(before) {
+  const lt = before.lastIndexOf('<'), gt = before.lastIndexOf('>');
+  if (lt > gt) {
+    const seg = before.slice(lt);
+    if (/^<\/?[^\s>]*$/.test(seg)) return 'tag';
+    if ((seg.match(/["']/g) || []).length % 2) return 'none';
+    return 'attr';
+  }
+  let state = 'html', start = 0, m;
+  const re = /<(\/?)([^\s>\/!]+)[^>]*>/g;
+  while ((m = re.exec(before))) {
+    const en = tagEn(m[2]);
+    if (en === 'style' || en === 'script') { state = m[1] ? 'html' : en; start = re.lastIndex; }
+  }
+  if (state === 'html') return 'text';
+  if (state === 'script') return 'js';
+  const css = before.slice(start);
+  const depth = (css.match(/\{/g) || []).length - (css.match(/\}/g) || []).length;
+  if (depth > 0) {
+    const cut = Math.max(css.lastIndexOf(';'), css.lastIndexOf('{'), css.lastIndexOf('}'));
+    return css.slice(cut + 1).indexOf(':') >= 0 ? 'css-val' : 'css-prop';
+  }
+  return 'css-sel';
+}
+
+/* ============ كلمات الإكمال + نص المعلم ============ */
+const W = {
+  tags: words(R.tags), attrs: words(R.attrs), props: words(R.cssProps),
+  vals: words(Object.assign({}, R.cssVals, R.colors, R.cssFuncs)), pseudo: words(R.cssPseudo), at: words(R.cssAt),
+  kw: words(R.jsKw), gl: words(R.jsGlobals), mem: words(R.jsMembers)
+};
+function wordsFor(ctx, afterDot) {
+  switch (ctx) {
+    case 'tag': return W.tags;
+    case 'attr': return W.attrs;
+    case 'css-prop': return W.props;
+    case 'css-val': return W.vals;
+    case 'css-sel': return W.tags.concat(W.pseudo);
+    case 'js': return afterDot ? W.mem : W.kw.concat(W.gl);
+    default: return [];
+  }
+}
+function pairs(o) { return Object.keys(o).map(k => k.split('|')[0] + '=' + o[k]).join('، '); }
+function promptDict() {
+  return [
+    'وسوم HTML: ' + pairs(R.tags),
+    'خصائص HTML: ' + pairs(R.attrs),
+    'قيم نوع: ' + pairs(R.attrVals.type) + ' | اتجاه: ' + pairs(R.attrVals.dir),
+    'خصائص CSS: ' + pairs(R.cssProps),
+    'قيم CSS: ' + pairs(R.cssVals) + '، ' + pairs(R.colors),
+    'وحدات CSS: ' + pairs(R.cssUnits) + ' | دوال CSS: ' + pairs(R.cssFuncs) + ' | تحديدات: ' + pairs(R.cssPseudo),
+    'كلمات JS: ' + pairs(R.jsKw),
+    'كائنات JS: ' + pairs(R.jsGlobals),
+    'دوال وخصائص JS: ' + pairs(R.jsMembers),
+    'احداث JS: ' + pairs(R.jsEvents)
+  ].join('\n');
+}
+function reference() {
+  const g = (title, o) => ({ title, items: Object.keys(o).map(k => ({ ar: k.split('|').join(' / '), ins: k.split('|')[0], en: o[k] })) });
+  return [
+    g('وسوم HTML', R.tags), g('خصائص HTML', R.attrs), g('قيم الخصائص: نوع', R.attrVals.type),
+    g('خصائص CSS', R.cssProps), g('قيم CSS', R.cssVals), g('الألوان', R.colors), g('وحدات CSS', R.cssUnits),
+    g('دوال CSS', R.cssFuncs), g('تحديدات CSS', R.cssPseudo), g('كلمات JavaScript', R.jsKw),
+    g('كائنات JavaScript', R.jsGlobals), g('دوال وخصائص JavaScript', R.jsMembers), g('أحداث', R.jsEvents)
+  ];
+}
+
+return {
+  norm, tagEn, attrEn, isVoid: en => VOID.has(en), kindOf, convert, convHTML, convCSS, convJS,
+  highlight, reindent, contextAt, wordsFor, promptDict, reference
+};
+})();
+if (typeof module !== 'undefined') module.exports = NERO;
+
+</script>
+<script>
+(function () {
+'use strict';
+const N = NERO;
+const $ = s => document.querySelector(s);
+const ta = $('#ta'), hl = $('#hl'), gin = $('#gin'), gutter = $('#gutter'), curEl = $('#cur');
+
+/* ===== أيقونات ===== */
+const P = {
+  menu: 'M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z',
+  edit: 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z',
+  play: 'M8 5v14l11-7z',
+  more: 'M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z',
+  close: 'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z',
+  xc: 'M12 2a10 10 0 100 20 10 10 0 000-20zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z',
+  undo: 'M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z',
+  redo: 'M18.4 10.6C16.55 8.99 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22L3.9 16c1.05-3.19 4.05-5.5 7.6-5.5 1.95 0 3.73.72 5.12 1.88L13 16h9V7l-3.6 3.6z',
+  search: 'M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z',
+  save: 'M17 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V7l-4-4zm-5 16a3 3 0 110-6 3 3 0 010 6zm3-10H5V5h10v4z',
+  down: 'M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z',
+  left: 'M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z',
+  right: 'M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z',
+  up: 'M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z',
+  tab: 'M11.59 7.41L15.17 11H1v2h14.17l-3.58 3.59L13 18l6-6-6-6-1.41 1.41zM20 6v12h2V6h-2z',
+  folder: 'M10 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2h-8l-2-2z',
+  file: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 7V3.5L18.5 9H13z',
+  filepl: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm4 12h-3v3h-2v-3h-3v-2h3V9h2v3h3v2z',
+  info: 'M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z',
+  book: 'M18 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2zM6 4h5v8l-2.5-1.5L6 12V4z',
+  spark: 'M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4L12 2zM19 14l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1 1-2.5z',
+  gear: 'M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58a.5.5 0 00.12-.64l-1.92-3.32a.5.5 0 00-.6-.22l-2.39.96a7 7 0 00-1.62-.94l-.36-2.54a.5.5 0 00-.5-.42h-3.84a.5.5 0 00-.5.42l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.5.5 0 00-.6.22L2.74 8.84a.5.5 0 00.12.64l2.03 1.58c-.05.3-.07.63-.07.94s.02.64.07.94l-2.03 1.58a.5.5 0 00-.12.64l1.92 3.32c.12.22.37.3.6.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.26.42.5.42h3.84c.24 0 .45-.18.5-.42l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .6-.22l1.92-3.32a.5.5 0 00-.12-.64l-2.01-1.58zM12 15.6A3.6 3.6 0 1115.6 12 3.6 3.6 0 0112 15.6z',
+  person: 'M12 12a4 4 0 100-8 4 4 0 000 8zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z',
+  refresh: 'M17.65 6.35A7.96 7.96 0 0012 4a8 8 0 108 8h-2a6 6 0 11-1.76-4.24L13 11h7V4l-2.35 2.35z',
+  term: 'M5 5h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2zm2.5 3.5l3 3-3 3 1 1 4-4-4-4-1 1zM12 15h5v-1.5h-5V15z',
+  trans: 'M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0014.07 6H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z',
+  add: 'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z',
+  trash: 'M6 19a2 2 0 002 2h8a2 2 0 002-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z',
+  copy: 'M16 1H4a2 2 0 00-2 2v14h2V3h12V1zm3 4H8a2 2 0 00-2 2v14a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2zm0 16H8V7h11v14z',
+  hist: 'M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6a7 7 0 117 7 6.96 6.96 0 01-4.95-2.05l-1.42 1.42A8.96 8.96 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8z',
+  send: 'M2.01 21L23 12 2.01 3 2 10l15 2-15 2z',
+  dl: 'M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z',
+  help: 'M12 2a10 10 0 100 20 10 10 0 000-20zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z',
+  list: 'M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z',
+  mvup: 'M12 4l-6 6h4v10h4V10h4l-6-6z',
+  mvdn: 'M12 20l6-6h-4V4h-4v10H6l6 6z',
+  pin: 'M16 9V4h1c.55 0 1-.45 1-1s-.45-1-1-1H7c-.55 0-1 .45-1 1s.45 1 1 1h1v5c0 1.66-1.34 3-3 3v2h5.97v7l1 1 1-1v-7H19v-2c-1.66 0-3-1.34-3-3z',
+  goto: 'M19 7v4H5.83l3.58-3.59L8 6l-6 6 6 6 1.41-1.41L5.83 13H21V7h-2z',
+  clsr: 'M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6-1.41 1.41zM16 6h2v12h-2V6z',
+  clsl: 'M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6 1.41-1.41zM6 6H4v12h2V6z',
+  clso: 'M7 11v2h10v-2H7zm5-9a10 10 0 100 20 10 10 0 000-20z'
+};
+const svg = (k, s) => '<svg viewBox="0 0 24 24"' + (s ? ' style="width:' + s + 'px;height:' + s + 'px"' : '') + '><path d="' + P[k] + '"/></svg>';
+function fileIcon(name) {
+  const e = (/\.([a-z0-9]+)$/i.exec(name) || [])[1] || '';
+  const k = e.toLowerCase();
+  if (k === 'html' || k === 'htm') return '<svg class="fi" viewBox="0 0 24 24"><path fill="#e44d26" d="M3 2l1.7 19L12 23l7.3-2L21 2z"/><path fill="#fff" d="M7.5 7h9l-.2 2h-6.6l.2 2h6.2l-.5 5.5-3.6 1-3.6-1-.2-2.5h2l.1 1.2 1.7.5 1.7-.5.2-2.2H7.9z"/></svg>';
+  const b = (c, t, tc) => '<svg class="fi" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="3" fill="' + c + '"/><text x="12" y="16.5" text-anchor="middle" font-size="10" font-weight="800" font-family="Arial" fill="' + (tc || '#fff') + '">' + t + '</text></svg>';
+  if (k === 'css') return b('#2965f1', 'CSS');
+  if (k === 'js' || k === 'mjs') return b('#f7df1e', 'JS', '#000');
+  if (k === 'py') return b('#3776ab', 'PY');
+  if (k === 'json') return b('#6b7280', '{}');
+  return '<svg class="fi" viewBox="0 0 24 24" style="color:#9aa3b2"><path d="' + P.file + '"/></svg>';
+}
+
+/* ===== التخزين والحالة ===== */
+const LSK = 'nero.v1';
+const STARTER = `<!مستند html>
+<صفحة لغة="ar" اتجاه="يمين">
+<راس>
+  <ميتا ترميز="utf-8">
+  <ميتا اسم="منفذ_العرض" محتوى="width=device-width, initial-scale=1">
+  <عنوان_الصفحة>اول برنامج بالعربي</عنوان_الصفحة>
+  <ستايل>
+    جسم {
+      خلفية: تدرج-خطي(135درجة, #1f1c2c, #4b3f72);
+      لون: ابيض;
+      نوع-الخط: sans-serif;
+      ظهور: مرن;
+      محاذاة-العناصر: وسط;
+      محاذاة-المحتوى: وسط;
+      ادنى-ارتفاع: 100ارتفاع_الشاشة;
+      هامش: 0;
+    }
+    .بطاقة {
+      خلفية: #ffffff18;
+      حشو: 24بكسل;
+      استدارة-الحدود: 16بكسل;
+      محاذاة-النص: وسط;
+    }
+    زر {
+      خلفية: #ec4899;
+      لون: ابيض;
+      حدود: بدون;
+      حشو: 12بكسل 24بكسل;
+      استدارة-الحدود: 12بكسل;
+      حجم-الخط: 18بكسل;
+      مؤشر: يد;
+    }
+    زر:تمرير { خلفية: #db2777; }
+  </ستايل>
+</راس>
+<جسم>
+  <قسم فئة="بطاقة">
+    <عنوان>اهلا بيك بنيرو 👋</عنوان>
+    <فقرة معرف="رسالة">اضغط الزر وشوف السحر</فقرة>
+    <زر عند_الضغط="سلم()">اضغطني</زر>
+  </قسم>
+  <سكربت>
+    متغير عداد = 0;
+    دالة سلم() {
+      عداد++;
+      وثيقة.عنصر_بالمعرف("رسالة").نص_داخلي = "ضغطت " + عداد + " مرة 🎉";
+      اطبع("عداد =", عداد);
+    }
+  </سكربت>
+</جسم>
+</صفحة>
+`;
+let S;
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+function newFile(name, content) { return { id: uid(), name, content: content || '', saved: null, mode: 'auto', ro: false, t: Date.now(), sel: [0, 0], top: 0 }; }
+function load() {
+  try { S = JSON.parse(localStorage.getItem(LSK)); } catch (e) { S = null; }
+  if (!S || !Array.isArray(S.files) || !S.files.length) {
+    const f = newFile('index.html', STARTER);
+    S = { files: [f], tabs: [f.id], active: f.id, set: {}, recent: [] };
+  }
+  S.tabs = (S.tabs || []).filter(id => S.files.some(f => f.id === id));
+  if (!S.tabs.length) S.tabs = [S.files[0].id];
+  if (!S.tabs.includes(S.active)) S.active = S.tabs[0];
+  S.recent = S.recent || [];
+  S.set = Object.assign({ fs: 14, auto: true, sug: true, model: 'gpt-4o-mini' }, S.set || {});
+}
+let pT;
+function persist(now) {
+  clearTimeout(pT);
+  const go = () => { try { localStorage.setItem(LSK, JSON.stringify(S)); } catch (e) { toast('المساحة ممتلئة، نزّل ملفاتك'); } };
+  if (now) go(); else pT = setTimeout(go, 500);
+}
+const cur = () => S.files.find(f => f.id === S.active);
+const dirty = f => f.saved !== f.content;
+const kind = f => N.kindOf(f.name, f.mode);
+
+/* ===== مساعدات الواجهة ===== */
+let toastT;
+function toast(msg, actTxt, act) {
+  const t = $('#toast');
+  t.innerHTML = '';
+  const s = document.createElement('span'); s.textContent = msg; t.appendChild(s);
+  if (actTxt) { const b = document.createElement('button'); b.textContent = actTxt; b.onclick = () => { t.classList.remove('show'); act && act(); }; t.appendChild(b); }
+  t.classList.add('show');
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), actTxt ? 6000 : 2200);
+}
+const escH = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+function modal(build) {
+  return new Promise(res => {
+    const d = $('#dlg'), card = d.querySelector('.card');
+    card.innerHTML = '';
+    const close = v => { d.classList.remove('open'); res(v); };
+    build(card, close);
+    d.classList.add('open');
+    d.onclick = e => { if (e.target === d) close(null); };
+  });
+}
+function btns(list, close) {
+  const w = document.createElement('div'); w.className = 'acts';
+  list.forEach(b => { const e = document.createElement('button'); e.textContent = b.t; if (b.c) e.className = b.c; e.onclick = () => close(b.v); w.appendChild(e); });
+  return w;
+}
+function askText(title, val, ph) {
+  return modal((card, close) => {
+    card.innerHTML = '<h4>' + escH(title) + '</h4>';
+    const i = document.createElement('input'); i.type = 'text'; i.value = val || ''; i.placeholder = ph || ''; card.appendChild(i);
+    i.onkeydown = e => { if (e.key === 'Enter') close(i.value); };
+    card.appendChild(btns([{ t: 'موافق', v: 'ok', c: 'p' }, { t: 'إلغاء', v: null }], v => close(v === 'ok' ? i.value : null)));
+    setTimeout(() => { i.focus(); i.select(); }, 60);
+  });
+}
+function askConfirm(title, msg, yes, no, danger) {
+  return modal((card, close) => {
+    card.innerHTML = '<h4>' + escH(title) + '</h4><p>' + escH(msg || '') + '</p>';
+    card.appendChild(btns([{ t: yes || 'موافق', v: true, c: danger ? 'dz' : 'p' }, { t: no || 'إلغاء', v: false }], close));
+  });
+}
+function pick(title, opts) {
+  return modal((card, close) => {
+    card.innerHTML = '<h4>' + escH(title) + '</h4>';
+    opts.forEach((o, i) => {
+      const b = document.createElement('button'); b.className = 'opt';
+      b.innerHTML = (o.icon ? svg(o.icon) : '') + '<span>' + escH(o.t) + (o.s ? '<small>' + escH(o.s) + '</small>' : '') + '</span>';
+      b.onclick = () => close(i); card.appendChild(b);
+    });
+    card.appendChild(btns([{ t: 'إلغاء', v: null }], close));
+  });
+}
+function info(title, html) {
+  return modal((card, close) => {
+    card.innerHTML = '<h4>' + escH(title) + '</h4>' + html;
+    card.appendChild(btns([{ t: 'تمام', v: true, c: 'p' }], close));
+  });
+}
+
+/* ===== المحرر ===== */
+let LH = 20;
+const H = {};
+function applyFont() {
+  const fs = S.set.fs; LH = Math.round(fs * 1.45);
+  const r = document.documentElement.style;
+  r.setProperty('--fs', fs + 'px'); r.setProperty('--lh', LH + 'px');
+}
+let lastLines = -1;
+function render() {
+  const f = cur(); if (!f) return;
+  const v = ta.value;
+  hl.innerHTML = N.highlight(v, kind(f)) + '\n';
+  const lines = v.split('\n').length;
+  if (lines !== lastLines) {
+    let s = ''; for (let i = 1; i <= lines; i++) s += i + '\n';
+    gin.textContent = s;
+    gutter.style.width = Math.max(46, 20 + String(lines).length * (S.set.fs * 0.62)) + 'px';
+    lastLines = lines;
+  }
+  syncScroll(); updCur();
+}
+function syncScroll() {
+  hl.scrollTop = ta.scrollTop; hl.scrollLeft = ta.scrollLeft;
+  gin.style.transform = 'translateY(' + (-ta.scrollTop) + 'px)';
+  updCur();
+}
+function lineOf(pos) { let c = 0, i = -1; const v = ta.value; while ((i = v.indexOf('\n', i + 1)) !== -1 && i < pos) c++; return c; }
+function updCur() {
+  const l = lineOf(ta.selectionStart);
+  curEl.style.top = (8 + l * LH - ta.scrollTop) + 'px';
+}
+function reveal(pos) {
+  const l = lineOf(pos), y = 8 + l * LH, h = ta.clientHeight;
+  if (y < ta.scrollTop + LH) ta.scrollTop = Math.max(0, y - LH * 2);
+  else if (y + LH > ta.scrollTop + h - LH) ta.scrollTop = y - h + LH * 3;
+  syncScroll();
+}
+function loadFile(id) {
+  const f = S.files.find(x => x.id === id); if (!f) return;
+  const prev = cur();
+  if (prev && prev.id !== id) { prev.sel = [ta.selectionStart, ta.selectionEnd]; prev.top = ta.scrollTop; }
+  S.active = id;
+  if (!S.tabs.includes(id)) S.tabs.push(id);
+  S.recent = [id].concat(S.recent.filter(x => x !== id)).slice(0, 15);
+  ta.value = f.content; ta.readOnly = !!f.ro; lastLines = -1;
+  if (!H[id]) H[id] = { s: [{ v: f.content, a: 0, b: 0 }], i: 0, t: 0 };
+  render();
+  ta.scrollTop = f.top || 0;
+  try { ta.setSelectionRange(f.sel[0], f.sel[1]); } catch (e) {}
+  syncScroll(); renderTabs(); renderHeader(); persist();
+  hideSugg();
+}
+function renderHeader() {
+  const f = cur();
+  $('#fT').textContent = f.name;
+  $('#fS').textContent = f.saved === null ? 'ملف جديد' : (dirty(f) ? 'غير محفوظ' : 'محفوظ');
+  $('#svdot').style.display = dirty(f) ? 'block' : 'none';
+}
+function renderTabs() {
+  const t = $('#tabs'); t.innerHTML = '';
+  S.tabs.forEach(id => {
+    const f = S.files.find(x => x.id === id); if (!f) return;
+    const d = document.createElement('div');
+    d.className = 'tab' + (id === S.active ? ' on' : '') + (dirty(f) ? ' d' : '');
+    d.innerHTML = '<span class="dot"></span>' + fileIcon(f.name) + '<span class="nm">' + escH(f.name) + '</span>';
+    const x = document.createElement('button'); x.className = 'x'; x.innerHTML = svg('xc'); x.onclick = e => { e.stopPropagation(); closeTab(id); };
+    d.appendChild(x); d.onclick = () => { if (id !== S.active) loadFile(id); };
+    t.appendChild(d);
+    if (id === S.active) setTimeout(() => { t.scrollLeft = d.offsetLeft - t.clientWidth / 2 + d.clientWidth / 2; }, 0);
+  });
+}
+function recordHist(force) {
+  const f = cur(), h = H[f.id], now = Date.now();
+  if (h.s[h.i].v === f.content) return;
+  const e = { v: f.content, a: ta.selectionStart, b: ta.selectionEnd };
+  if (!force && now - h.t < 700 && h.i > 0) h.s[h.i] = e;
+  else { h.s = h.s.slice(0, h.i + 1); h.s.push(e); if (h.s.length > 300) h.s.shift(); h.i = h.s.length - 1; }
+  h.t = now;
+}
+function commit(force) {
+  const f = cur();
+  f.content = ta.value; f.t = Date.now();
+  recordHist(force); render(); renderHeader();
+  $('#tabs .tab.on') && $('#tabs .tab.on').classList.toggle('d', dirty(f));
+  persist();
+}
+function applyHist(h) {
+  const f = cur(), e = h.s[h.i];
+  ta.value = e.v; f.content = e.v; h.t = 0; lastLines = -1;
+  try { ta.setSelectionRange(e.a, e.b); } catch (x) {}
+  render(); renderHeader(); renderTabs(); reveal(e.a); persist();
+}
+function undo() { const h = H[S.active]; if (h.i > 0) { h.i--; applyHist(h); } else toast('لا يوجد تراجع'); }
+function redo() { const h = H[S.active]; if (h.i < h.s.length - 1) { h.i++; applyHist(h); } else toast('لا يوجد إعادة'); }
+function insert(text, caretBack) {
+  if (ta.readOnly) { toast('الملف للقراءة فقط'); return; }
+  const s = ta.selectionStart, e = ta.selectionEnd;
+  ta.setRangeText(text, s, e, 'end');
+  if (caretBack) { const p = s + text.length - caretBack; ta.setSelectionRange(p, p); }
+  commit(true); reveal(ta.selectionStart);
+}
+function insertSnippet(str) {
+  const k = str.indexOf('$0');
+  if (k < 0) return insert(str);
+  insert(str.replace('$0', ''), str.length - 2 - k);
+}
+function lineRange() {
+  const v = ta.value; let s = ta.selectionStart, e = ta.selectionEnd;
+  const st = v.lastIndexOf('\n', s - 1) + 1;
+  if (e > s && v[e - 1] === '\n') e--;
+  let en = v.indexOf('\n', e); if (en < 0) en = v.length;
+  return [st, en];
+}
+function moveLines(dir) {
+  if (ta.readOnly) return;
+  const v = ta.value, s = ta.selectionStart, e = ta.selectionEnd, [st, en] = lineRange();
+  const block = v.slice(st, en);
+  if (dir < 0) {
+    if (st === 0) return;
+    const ps = v.lastIndexOf('\n', st - 2) + 1, prev = v.slice(ps, st - 1);
+    ta.setRangeText(block + '\n' + prev, ps, en, 'preserve');
+    ta.setSelectionRange(s - prev.length - 1, e - prev.length - 1);
+  } else {
+    if (en >= v.length) return;
+    let ne = v.indexOf('\n', en + 1); if (ne < 0) ne = v.length;
+    const next = v.slice(en + 1, ne);
+    ta.setRangeText(next + '\n' + block, st, ne, 'preserve');
+    ta.setSelectionRange(s + next.length + 1, e + next.length + 1);
+  }
+  commit(true); reveal(ta.selectionStart);
+}
+function copyLines(dir) {
+  if (ta.readOnly) return;
+  const v = ta.value, s = ta.selectionStart, e = ta.selectionEnd, [st, en] = lineRange();
+  const block = v.slice(st, en);
+  if (dir < 0) { ta.setRangeText(block + '\n', st, st, 'preserve'); ta.setSelectionRange(s, e); }
+  else { ta.setRangeText('\n' + block, en, en, 'preserve'); ta.setSelectionRange(s + block.length + 1, e + block.length + 1); }
+  commit(true); reveal(ta.selectionStart);
+}
+function indent(out) {
+  if (ta.readOnly) return;
+  const s = ta.selectionStart, e = ta.selectionEnd, v = ta.value;
+  if (s === e && !out) return insert('  ');
+  const [st, en] = lineRange();
+  const lines = v.slice(st, en).split('\n');
+  let first = 0, total = 0;
+  const res = lines.map((l, i) => {
+    if (out) { const m = /^( {1,2}|\t)/.exec(l); const r = m ? m[0].length : 0; if (i === 0) first = -r; total -= r; return l.slice(r); }
+    if (i === 0) first = 2; total += 2; return '  ' + l;
+  });
+  ta.setRangeText(res.join('\n'), st, en, 'preserve');
+  ta.setSelectionRange(Math.max(st, s + first), e + total);
+  commit(true);
+}
+const mod = { ctrl: false, shift: false };
+function setMod(k) { mod[k] = !mod[k]; paintMods(); }
+function paintMods() { document.querySelectorAll('[data-mod]').forEach(b => b.classList.toggle('act', mod[b.dataset.mod])); }
+function wordEdge(v, p, dir) {
+  const isW = c => /[\w؀-ۿ]/.test(c || '');
+  if (dir < 0) { while (p > 0 && !isW(v[p - 1])) p--; while (p > 0 && isW(v[p - 1])) p--; }
+  else { while (p < v.length && !isW(v[p])) p++; while (p < v.length && isW(v[p])) p++; }
+  return p;
+}
+function moveCaret(d) {
+  const v = ta.value, back = ta.selectionDirection === 'backward';
+  let s = ta.selectionStart, e = ta.selectionEnd;
+  let anchor = back ? e : s, focus = back ? s : e;
+  if (!mod.shift && s !== e) {
+    if (d === 'l' || d === 'u') focus = s; else focus = e;
+    anchor = focus;
+  } else {
+    if (d === 'l') focus = mod.ctrl ? wordEdge(v, focus, -1) : Math.max(0, focus - 1);
+    else if (d === 'r') focus = mod.ctrl ? wordEdge(v, focus, 1) : Math.min(v.length, focus + 1);
+    else {
+      const ls = v.lastIndexOf('\n', focus - 1) + 1, col = focus - ls;
+      if (d === 'u') {
+        if (ls === 0) focus = 0; else { const ps = v.lastIndexOf('\n', ls - 2) + 1; focus = Math.min(ps + col, ls - 1); }
+      } else {
+        let le = v.indexOf('\n', focus); if (le < 0) focus = v.length; else { let ne = v.indexOf('\n', le + 1); if (ne < 0) ne = v.length; focus = Math.min(le + 1 + col, ne); }
+      }
+    }
+    if (!mod.shift) anchor = focus;
+  }
+  if (mod.shift) ta.setSelectionRange(Math.min(anchor, focus), Math.max(anchor, focus), focus < anchor ? 'backward' : 'forward');
+  else ta.setSelectionRange(focus, focus);
+  mod.ctrl = mod.shift = false; paintMods();
+  reveal(focus); updCur();
+}
+
+/* ===== الإكمال التلقائي ===== */
+const sg = $('#sugg');
+function hideSugg() { sg.classList.remove('open'); sg.innerHTML = ''; }
+function updateSugg() {
+  if (!S.set.sug || ta.readOnly || document.activeElement !== ta || ta.selectionStart !== ta.selectionEnd) return hideSugg();
+  const f = cur(); if (kind(f) !== 'html') return hideSugg();
+  const pos = ta.selectionStart, before = ta.value.slice(0, pos);
+  const m = /([؀-ۿ][؀-ۿ_\-\w]*)$/.exec(before);
+  if (!m) return hideSugg();
+  const w = m[1], pre = N.norm(w), ctx = N.contextAt(before.slice(0, pos - w.length));
+  const afterDot = /\.$/.test(before.slice(0, pos - w.length));
+  const list = N.wordsFor(ctx, afterDot);
+  const seen = new Set(), out = [];
+  list.filter(x => x.n.startsWith(pre) && x.n !== pre).sort((a, b) => a.n.length - b.n.length).forEach(x => { if (!seen.has(x.ar) && out.length < 14) { seen.add(x.ar); out.push(x); } });
+  if (!out.length) return hideSugg();
+  sg.innerHTML = '';
+  out.forEach(x => {
+    const b = document.createElement('button'); b.textContent = x.ar;
+    b.onclick = () => {
+      let t = x.ar, back = 0;
+      if (ctx === 'attr') { t += '=""'; back = 1; } else if (ctx === 'css-prop') t += ': ';
+      ta.setRangeText(t, pos - w.length, pos, 'end');
+      if (back) { const p = ta.selectionStart - back; ta.setSelectionRange(p, p); }
+      commit(true); hideSugg(); ta.focus();
+    };
+    sg.appendChild(b);
+  });
+  sg.classList.add('open'); sg.scrollLeft = 0;
+}
+function tryCloseTag() {
+  if (!S.set.auto || kind(cur()) !== 'html') return;
+  const pos = ta.selectionStart, v = ta.value, before = v.slice(0, pos);
+  const lt = before.lastIndexOf('<'); if (lt < 0) return;
+  const seg = before.slice(lt);
+  if (/^<[\/!?]/.test(seg) || /\/>$/.test(seg) || /<[^>]*>[^<]*>$/.test(seg) && seg.indexOf('>') !== seg.length - 1) return;
+  const m = /^<([؀-ۿA-Za-z][^\s>\/<]*)/.exec(seg); if (!m) return;
+  if ((seg.match(/["']/g) || []).length % 2) return;
+  if (N.isVoid(N.tagEn(m[1]))) return;
+  if (v.slice(pos).startsWith('</' + m[1])) return;
+  ta.setRangeText('</' + m[1] + '>', pos, pos, 'preserve');
+  ta.setSelectionRange(pos, pos);
+}
+function autoIndent() {
+  const p = ta.selectionStart, v = ta.value;
+  if (v[p - 1] !== '\n') return;
+  const ps = v.lastIndexOf('\n', p - 2) + 1, prev = v.slice(ps, p - 1);
+  const ind = /^[ \t]*/.exec(prev)[0];
+  let extra = '';
+  const tr = prev.trim();
+  if (/[{\[(]$/.test(tr)) extra = '  ';
+  else if (kind(cur()) === 'html') {
+    const m = /<([؀-ۿA-Za-z][^\s>\/<]*)[^<>]*>$/.exec(tr);
+    if (m && !tr.startsWith('</') && !N.isVoid(N.tagEn(m[1])) && !/\/>$/.test(tr)) extra = '  ';
+  }
+  const next = v.slice(p, p + 2);
+  const brk = extra && (/^(<\/|\}|\]|\))/.test(next));
+  const t = ind + extra + (brk ? '\n' + ind : '');
+  if (!t) return;
+  ta.setRangeText(t, p, p, 'end');
+  const np = p + ind.length + extra.length; ta.setSelectionRange(np, np);
+}
+ta.addEventListener('input', e => {
+  if (ta.readOnly) return;
+  const t = e.inputType || '';
+  if (t === 'insertLineBreak' || t === 'insertParagraph') autoIndent();
+  else if (t === 'insertText' && e.data === '>') tryCloseTag();
+  commit(false); updateSugg(); reveal(ta.selectionStart);
+});
+ta.addEventListener('beforeinput', e => {
+  if (e.inputType === 'historyUndo') { e.preventDefault(); undo(); }
+  else if (e.inputType === 'historyRedo') { e.preventDefault(); redo(); }
+});
+ta.addEventListener('scroll', syncScroll);
+['keyup', 'click', 'focus', 'touchend'].forEach(ev => ta.addEventListener(ev, () => setTimeout(() => { updCur(); updateSugg(); }, 0)));
+document.addEventListener('selectionchange', () => { if (document.activeElement === ta) updCur(); });
+ta.addEventListener('blur', () => setTimeout(() => { if (document.activeElement !== ta) hideSugg(); }, 200));
+ta.addEventListener('keydown', e => {
+  const c = e.ctrlKey || e.metaKey;
+  if (c && e.key === 's') { e.preventDefault(); saveFile(); }
+  else if (c && e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); }
+  else if (c && (e.key === 'y' || (e.key === 'z' && e.shiftKey))) { e.preventDefault(); redo(); }
+  else if (c && e.key === 'f') { e.preventDefault(); toggleFind(true); }
+  else if (c && e.key === 'Enter') { e.preventDefault(); runPreview(); }
+  else if (e.key === 'Tab') { e.preventDefault(); indent(e.shiftKey); }
+});
+
+/* ===== الملفات ===== */
+function saveFile() {
+  const f = cur(); f.saved = f.content; persist(true); renderHeader(); renderTabs(); toast('تم الحفظ ✓');
+}
+function uniqueName(base) {
+  const names = new Set(S.files.map(f => f.name));
+  if (!names.has(base)) return base;
+  const m = /^(.*?)(\.[^.]*)?$/.exec(base); let i = 2;
+  while (names.has(m[1] + '-' + i + (m[2] || ''))) i++;
+  return m[1] + '-' + i + (m[2] || '');
+}
+async function newFileDlg() {
+  const n = await askText('ملف جديد', uniqueName('index.html'), 'اسم الملف');
+  if (n === null || !n.trim()) return;
+  const f = newFile(uniqueName(n.trim()), '');
+  S.files.push(f); loadFile(f.id); ta.focus();
+}
+async function closeTab(id) {
+  const f = S.files.find(x => x.id === id); if (!f) return;
+  if (id === S.active) { f.content = ta.value; }
+  if (dirty(f)) {
+    const r = await modal((card, close) => {
+      card.innerHTML = '<h4>تعديلات غير محفوظة</h4><p>تبي تحفظ «' + escH(f.name) + '» قبل الإغلاق؟</p>';
+      card.appendChild(btns([{ t: 'حفظ', v: 's', c: 'p' }, { t: 'تجاهل', v: 'd', c: 'dz' }, { t: 'إلغاء', v: null }], close));
+    });
+    if (!r) return;
+    if (r === 's') f.saved = f.content;
+    else { if (f.saved === null) S.files = S.files.filter(x => x.id !== id); else f.content = f.saved; }
+  }
+  const i = S.tabs.indexOf(id);
+  S.tabs = S.tabs.filter(x => x !== id);
+  delete H[id];
+  if (!S.tabs.length) { const nf = newFile(uniqueName('index.html'), ''); S.files.push(nf); S.tabs = [nf.id]; S.active = nf.id; loadFile(nf.id); return; }
+  if (id === S.active) loadFile(S.tabs[Math.min(i, S.tabs.length - 1)]);
+  else { renderTabs(); persist(); }
+}
+function download(name, text) {
+  try {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([text], { type: 'text/plain;charset=utf-8' }));
+    a.download = name; document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+    toast('جاري تنزيل ' + name);
+  } catch (e) { toast('التنزيل غير مدعوم هنا، استخدم النسخ'); }
+}
+async function copyText(t) {
+  try { await navigator.clipboard.writeText(t); toast('تم النسخ ✓'); return true; }
+  catch (e) {
+    try { const x = document.createElement('textarea'); x.value = t; document.body.appendChild(x); x.select(); document.execCommand('copy'); x.remove(); toast('تم النسخ ✓'); return true; }
+    catch (e2) { toast('تعذر النسخ'); return false; }
+  }
+}
+async function renameFile() {
+  const f = cur(); const n = await askText('إعادة تسمية', f.name);
+  if (n === null || !n.trim() || n.trim() === f.name) return;
+  f.name = uniqueName(n.trim()); persist(); render(); renderTabs(); renderHeader();
+}
+async function saveAs() {
+  const f = cur();
+  const r = await pick('حفظ باسم', [
+    { t: 'تنزيل الملف كما هو (عربي)', s: f.name, icon: 'dl' },
+    { t: 'تنزيل النسخة الإنجليزية', s: 'بعد التحويل', icon: 'trans' },
+    { t: 'حفظ نسخة داخل التطبيق', s: 'باسم جديد', icon: 'save' }]);
+  if (r === 0) download(f.name, ta.value);
+  else if (r === 1) { const o = N.convert(ta.value, kind(f)); if (o === null) toast('هذا النوع ما يتحول'); else download(f.name, o); }
+  else if (r === 2) {
+    const n = await askText('حفظ باسم', uniqueName(f.name)); if (n === null || !n.trim()) return;
+    const nf = newFile(uniqueName(n.trim()), ta.value); nf.saved = nf.content; S.files.push(nf); loadFile(nf.id); toast('تم الحفظ ✓');
+  }
+}
+function openFromDevice() { $('#fileIn').click(); }
+$('#fileIn').addEventListener('change', e => {
+  [...e.target.files].forEach(file => {
+    const r = new FileReader();
+    r.onload = () => { const f = newFile(uniqueName(file.name), String(r.result)); f.saved = f.content; S.files.push(f); loadFile(f.id); toast('تم فتح ' + file.name); };
+    r.readAsText(file);
+  });
+  e.target.value = '';
+});
+async function gotoLine() {
+  const v = await askText('الذهاب إلى السطر', '', 'رقم السطر'); if (v === null) return;
+  const n = parseInt(String(v).replace(/[٠-٩]/g, d => d.charCodeAt(0) - 1632), 10); if (!n) return;
+  const lines = ta.value.split('\n'); const t = Math.min(Math.max(n, 1), lines.length);
+  let p = 0; for (let i = 0; i < t - 1; i++) p += lines[i].length + 1;
+  ta.focus(); ta.setSelectionRange(p, p); reveal(p);
+}
+function formatCode() {
+  const f = cur(); const k = kind(f);
+  if (ta.readOnly) return toast('الملف للقراءة فقط');
+  if (k === 'text') return toast('التنسيق للـ HTML و CSS و JS');
+  ta.value = N.reindent(ta.value, k); commit(true); toast('تم التنسيق ✓');
+}
+
+/* ===== التحويل ===== */
+async function convertDlg() {
+  const f = cur(), k = kind(f);
+  const out = N.convert(ta.value, k);
+  if (out === null) { toast('التحويل متاح حالياً لـ HTML و CSS و JS'); return; }
+  if (out === ta.value) { toast('ما لقيت كلمات عربية للتحويل'); return; }
+  const r = await pick('تحويل الكود للإنجليزية', [
+    { t: 'استبدال كودي بالنسخة الإنجليزية', s: 'تقدر ترجع بزر التراجع', icon: 'trans' },
+    { t: 'فتحها بتبويب جديد', s: 'يبقى كودك العربي كما هو', icon: 'filepl' },
+    { t: 'تنزيل ملف إنجليزي', s: f.name, icon: 'dl' },
+    { t: 'نسخ الكود الإنجليزي', icon: 'copy' }]);
+  if (r === 0) {
+    if (ta.readOnly) return toast('الملف للقراءة فقط');
+    ta.value = out; commit(true);
+    toast('تم التحويل ✓', 'تراجع', undo);
+  } else if (r === 1) {
+    const nf = newFile(uniqueName(f.name.replace(/(\.[^.]*)?$/, '-en$1')), out); S.files.push(nf); loadFile(nf.id); toast('فتحت النسخة الإنجليزية');
+  } else if (r === 2) download(f.name, out);
+  else if (r === 3) copyText(out);
+}
+
+/* ===== البحث داخل الملف ===== */
+const fb = $('#findbar'), fIn = $('#fIn'), rIn = $('#rIn');
+function toggleFind(open) {
+  const o = open === undefined ? !fb.classList.contains('open') : open;
+  fb.classList.toggle('open', o);
+  if (o) { const sel = ta.value.slice(ta.selectionStart, ta.selectionEnd); if (sel && !sel.includes('\n')) fIn.value = sel; fIn.focus(); fIn.select(); countFind(); }
+  else ta.focus();
+}
+function allMatches() {
+  const q = fIn.value; if (!q) return [];
+  const v = ta.value.toLowerCase(), ql = q.toLowerCase(), r = []; let i = -1;
+  while ((i = v.indexOf(ql, i + 1)) !== -1) r.push(i);
+  return r;
+}
+function countFind() { const m = allMatches(); const p = ta.selectionStart; const idx = m.findIndex(x => x === ta.selectionStart - 0 || (x <= ta.selectionStart && ta.selectionStart <= x + fIn.value.length)); $('#findcount').textContent = fIn.value ? (m.length ? (idx >= 0 ? idx + 1 : '-') + '/' + m.length : '0') : ''; }
+function findStep(dir) {
+  const m = allMatches(); if (!m.length) { $('#findcount').textContent = '0'; return toast('ما لقيت شي'); }
+  const p = dir > 0 ? ta.selectionEnd : ta.selectionStart - 1;
+  let t;
+  if (dir > 0) t = m.find(x => x >= p); else { const b = m.filter(x => x <= p); t = b.length ? b[b.length - 1] : undefined; }
+  if (t === undefined) t = dir > 0 ? m[0] : m[m.length - 1];
+  ta.setSelectionRange(t, t + fIn.value.length); reveal(t); updCur(); countFind();
+}
+function replaceOne() {
+  if (ta.readOnly) return;
+  const q = fIn.value; if (!q) return;
+  if (ta.value.slice(ta.selectionStart, ta.selectionEnd).toLowerCase() === q.toLowerCase()) {
+    ta.setRangeText(rIn.value, ta.selectionStart, ta.selectionEnd, 'end'); commit(true);
+  }
+  findStep(1);
+}
+function replaceAll() {
+  if (ta.readOnly) return;
+  const m = allMatches(); if (!m.length) return toast('ما لقيت شي');
+  const q = fIn.value, v = ta.value; let o = '', last = 0;
+  m.forEach(i => { o += v.slice(last, i) + rIn.value; last = i + q.length; }); o += v.slice(last);
+  ta.value = o; commit(true); countFind(); toast('تم استبدال ' + m.length);
+}
+fIn.addEventListener('input', () => { findStep(1); });
+fIn.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); findStep(1); } });
+
+/* ===== شريط الأدوات السفلي ===== */
+const qt = $('#qt');
+const PAGES = [];
+function qb(html, fn, cls, extra) { return { html, fn, cls: cls || '', extra: extra || '' }; }
+function buildQT() {
+  PAGES.length = 0;
+  PAGES.push([
+    [qb('CTRL', () => setMod('ctrl'), '', 'data-mod="ctrl"'), qb(svg('tab'), () => indent(mod.shift), ''), qb('SHFT', () => setMod('shift'), '', 'data-mod="shift"'),
+     qb(svg('undo'), undo), qb(svg('redo'), redo), qb(svg('search'), () => toggleFind()), qb(svg('save') + '<i id="svdot"></i>', saveFile), qb('ESC', escKey)],
+    [qb(svg('left'), () => moveCaret('l')), qb(svg('right'), () => moveCaret('r')), qb(svg('up'), () => moveCaret('u')), qb(svg('down'), () => moveCaret('d')),
+     qb(svg('mvup') + '<b class="sm">M</b>', () => moveLines(-1)), qb(svg('mvdn') + '<b class="sm">M</b>', () => moveLines(1)),
+     qb(svg('mvup') + '<b class="sm">C</b>', () => copyLines(-1)), qb(svg('mvdn') + '<b class="sm">C</b>', () => copyLines(1))]
+  ]);
+  const sy = c => qb(c, () => insert(c), 'sy');
+  PAGES.push([
+    ['{', '}', '[', ']', '(', ')', '<', '>'].map(sy),
+    [';', "'", '"', '&', '|', '=', '/', '!'].map(sy)
+  ]);
+  const sn = (t, s) => qb(t, () => insertSnippet(s), 'sn');
+  PAGES.push([
+    [sn('قسم', '<قسم>$0</قسم>'), sn('فقرة', '<فقرة>$0</فقرة>'), sn('زر', '<زر عند_الضغط="$0"></زر>'), sn('رابط', '<رابط وجهة="$0"></رابط>'),
+     sn('صورة', '<صورة مصدر="$0">'), sn('ادخال', '<ادخال نوع="نص" نص_توضيحي="$0">'), sn('ستايل', '<ستايل>\n  $0\n</ستايل>'), sn('سكربت', '<سكربت>\n  $0\n</سكربت>')],
+    [sn('قائمة', '<قائمة>\n  <عنصر>$0</عنصر>\n</قائمة>'), sn('عنوان', '<عنوان>$0</عنوان>'), sn('دالة', 'دالة اسم() {\n  $0\n}'), sn('اذا', 'اذا ($0) {\n  \n}'),
+     sn('اطبع', 'اطبع($0);'), sn('مستمع', 'عنصر.اضف_مستمع("نقر", () => {\n  $0\n});'), sn('، ؛ ؟', '،'), sn('قالب', '<!مستند html>\n<صفحة لغة="ar" اتجاه="يمين">\n<راس>\n  <ميتا ترميز="utf-8">\n  <ميتا اسم="منفذ_العرض" محتوى="width=device-width, initial-scale=1">\n  <عنوان_الصفحة>$0</عنوان_الصفحة>\n</راس>\n<جسم>\n  \n</جسم>\n</صفحة>\n')]
+  ]);
+}
+let page = 0;
+function renderQT() {
+  qt.innerHTML = '';
+  PAGES[page].forEach(row => {
+    const r = document.createElement('div'); r.className = 'qr on';
+    row.forEach(b => {
+      const e = document.createElement('button'); e.className = 'qb ' + b.cls; e.innerHTML = b.html;
+      if (b.extra) { const m = /data-mod="(\w+)"/.exec(b.extra); if (m) e.dataset.mod = m[1]; }
+      e.onclick = () => { b.fn(); if (document.activeElement !== ta && !fb.classList.contains('open') && b.html !== 'ESC') {} };
+      r.appendChild(e);
+    });
+    qt.appendChild(r);
+  });
+  paintMods(); renderHeader();
+  $('#fab').classList.toggle('up', page !== 0);
+}
+['pointerdown', 'mousedown'].forEach(ev => qt.addEventListener(ev, e => e.preventDefault()));
+['pointerdown', 'mousedown'].forEach(ev => $('#fab').addEventListener(ev, e => e.preventDefault()));
+$('#fab').onclick = () => { page = (page + 1) % PAGES.length; renderQT(); };
+function escKey() {
+  if ($('#pv').classList.contains('open')) return closePreview();
+  if ($('#ai').classList.contains('open')) return closeAI();
+  if ($('#drawer').classList.contains('open')) return closeDrawer();
+  if (fb.classList.contains('open')) return toggleFind(false);
+  closeMenu(); ta.blur();
+}
+
+/* ===== القوائم ===== */
+let menuEl = null, shade = null;
+function closeMenu() { if (menuEl) { menuEl.remove(); shade.remove(); menuEl = shade = null; } }
+function showMenu(items, side) {
+  closeMenu();
+  shade = document.createElement('div'); shade.className = 'shade'; shade.onclick = closeMenu; document.body.appendChild(shade);
+  menuEl = document.createElement('div'); menuEl.className = 'menu';
+  menuEl.style.top = '52px'; if (side === 'r') menuEl.style.right = '8px'; else menuEl.style.left = '8px';
+  items.forEach(it => {
+    if (it === '-') { const s = document.createElement('div'); s.className = 'msep'; menuEl.appendChild(s); return; }
+    const b = document.createElement('button'); b.className = 'mi' + (it.off ? ' off' : '');
+    let right = it.icon ? svg(it.icon) : '';
+    if (it.check !== undefined) right = '<span class="chk' + (it.check ? ' on' : '') + '"></span>';
+    b.innerHTML = '<span class="lb">' + escH(it.t) + (it.s ? '<small>' + escH(it.s) + '</small>' : '') + '</span>' + right;
+    b.onclick = () => { if (it.off) return; closeMenu(); it.fn && it.fn(); };
+    menuEl.appendChild(b);
+  });
+  document.body.appendChild(menuEl);
+}
+function fileMenu() {
+  const f = cur();
+  showMenu([
+    { t: 'خصائص الملف', icon: 'info', fn: fileProps, off: false },
+    '-',
+    { t: 'إعادة تسمية', fn: renameFile },
+    { t: 'تمييز الصيغة (Syntax Highlighting)', s: kind(f), fn: chooseMode },
+    { t: 'ترميز النص', s: 'UTF-8', off: true },
+    { t: 'للقراءة فقط', check: !!f.ro, fn: () => { f.ro = !f.ro; ta.readOnly = f.ro; persist(); } },
+    { t: 'تنسيق', fn: formatCode },
+    { t: 'تحويل للإنجليزية', icon: 'trans', fn: convertDlg },
+    '-',
+    { t: 'إغلاق التبويبات الأخرى', icon: 'clso', fn: closeOthers },
+    '-',
+    { t: 'بحث', icon: 'search', fn: () => toggleFind(true) },
+    { t: 'الذهاب إلى السطر', icon: 'goto', fn: gotoLine }
+  ], 'l');
+}
+function mainMenu() {
+  showMenu([
+    { t: 'ملف جديد', icon: 'filepl', fn: newFileDlg },
+    { t: 'حفظ', icon: 'save', fn: saveFile },
+    { t: 'حفظ باسم', icon: 'save', fn: saveAs },
+    { t: 'فتح ملف من الجهاز', icon: 'dl', fn: openFromDevice },
+    { t: 'الملفات', icon: 'folder', fn: () => openDrawer('files') },
+    { t: 'إغلاق الملف', icon: 'close', fn: () => closeTab(S.active) },
+    { t: 'الملفات الأخيرة', icon: 'hist', fn: recentDlg },
+    { t: 'البحث عن ملف', icon: 'search', fn: () => openDrawer('search') },
+    { t: 'وحدة التحكم', icon: 'term', fn: () => runPreview(true) },
+    { t: 'المعلم الذكي', icon: 'spark', fn: openAI },
+    '-',
+    { t: 'الإعدادات', icon: 'gear', fn: settingsDlg },
+    { t: 'مساعدة', icon: 'help', fn: helpDlg }
+  ], 'r');
+}
+function closeOthers() { const id = S.active; S.tabs = [id]; renderTabs(); persist(); }
+async function chooseMode() {
+  const f = cur(); const ms = ['auto', 'html', 'css', 'js', 'text'];
+  const r = await pick('تمييز الصيغة', [{ t: 'تلقائي (حسب الامتداد)' }, { t: 'HTML' }, { t: 'CSS' }, { t: 'JavaScript' }, { t: 'نص عادي' }]);
+  if (r === null) return; f.mode = ms[r]; persist(); render(); toast('الصيغة: ' + kind(f));
+}
+function fileProps() {
+  const f = cur(); const lines = ta.value.split('\n').length;
+  info('خصائص الملف', '<p>الاسم: <b style="direction:ltr;display:inline-block">' + escH(f.name) + '</b></p><p>النوع: ' + kind(f) + '</p><p>عدد الأسطر: ' + lines + '</p><p>عدد الأحرف: ' + ta.value.length + '</p><p>الحالة: ' + (f.saved === null ? 'ملف جديد' : dirty(f) ? 'غير محفوظ' : 'محفوظ') + '</p>');
+}
+async function recentDlg() {
+  const list = S.recent.map(id => S.files.find(f => f.id === id)).filter(Boolean);
+  if (!list.length) return toast('ما في ملفات أخيرة');
+  const r = await pick('الملفات الأخيرة', list.map(f => ({ t: f.name, s: f.saved === null ? 'ملف جديد' : 'محفوظ' })));
+  if (r !== null) loadFile(list[r].id);
+}
+
+/* ===== القائمة الجانبية ===== */
+let panel = 'files';
+const RAILS = [['files', 'folder'], ['search', 'search'], ['ref', 'book'], ['ai', 'spark'], ['set', 'gear']];
+function openDrawer(p) { panel = p || panel; $('#drawer').classList.add('open'); renderRail(); renderPanel(); }
+function closeDrawer() { $('#drawer').classList.remove('open'); }
+$('#dscrim').onclick = closeDrawer;
+function renderRail() {
+  const r = $('#rail'); r.innerHTML = '';
+  RAILS.forEach(([k, ic]) => {
+    const b = document.createElement('button'); b.className = 'rb' + (k === panel ? ' on' : ''); b.innerHTML = svg(ic);
+    b.onclick = () => {
+      if (k === 'ai') { closeDrawer(); openAI(); }
+      else if (k === 'set') { closeDrawer(); settingsDlg(); }
+      else { panel = k; renderRail(); renderPanel(); }
+    };
+    r.appendChild(b);
+  });
+  const av = document.createElement('div'); av.className = 'av';
+  av.innerHTML = '<button>' + svg('person') + '</button>';
+  av.firstChild.onclick = () => info('نيرو', '<p>نيرو v1.0 — محرر برمجة بالعربي.</p><p>اكتب كودك بالعربي، وبضغطة زر يتحول للإنجليزي الحقيقي. ابدأ بـ HTML وCSS وJavaScript، وPython قريباً.</p>');
+  r.appendChild(av);
+}
+function renderPanel() {
+  const b = $('#pbody'); b.innerHTML = '';
+  if (panel === 'files') panelFiles(b);
+  else if (panel === 'search') panelSearch(b);
+  else panelRef(b);
+}
+function head(b, title, acts) {
+  const h = document.createElement('div'); h.className = 'ph'; h.innerHTML = '<h3>' + title + '</h3>';
+  (acts || []).forEach(a => { const x = document.createElement('button'); x.className = 'ib'; x.innerHTML = svg(a[0]); x.onclick = a[1]; h.appendChild(x); });
+  b.appendChild(h);
+}
+function panelFiles(b) {
+  head(b, 'الملفات', [['filepl', () => { closeDrawer(); newFileDlg(); }], ['dl', () => { closeDrawer(); openFromDevice(); }]]);
+  const l = document.createElement('div'); l.className = 'plist'; b.appendChild(l);
+  [...S.files].sort((a, c) => c.t - a.t).forEach(f => {
+    const r = document.createElement('div'); r.className = 'pi'; r.style.cursor = 'pointer';
+    r.innerHTML = fileIcon(f.name) + '<div class="t"><b>' + escH(f.name) + '</b><small>' + (f.saved === null ? 'ملف جديد' : dirty(f) ? 'غير محفوظ' : 'محفوظ') + (S.tabs.includes(f.id) ? ' · مفتوح' : '') + '</small></div>';
+    const d = document.createElement('button'); d.className = 'ib'; d.innerHTML = svg('trash');
+    d.onclick = async e => {
+      e.stopPropagation();
+      if (await askConfirm('حذف الملف', 'تبي تحذف «' + f.name + '» نهائياً؟', 'حذف', 'إلغاء', true)) {
+        S.files = S.files.filter(x => x.id !== f.id); S.tabs = S.tabs.filter(x => x !== f.id); delete H[f.id];
+        if (!S.files.length) { const nf = newFile('index.html', ''); S.files.push(nf); }
+        if (!S.tabs.length) S.tabs = [S.files[0].id];
+        if (f.id === S.active) { S.active = S.tabs[0]; loadFile(S.active); } else { renderTabs(); persist(); }
+        renderPanel();
+      }
+    };
+    r.appendChild(d); r.onclick = () => { closeDrawer(); loadFile(f.id); }; l.appendChild(r);
+  });
+}
+function panelSearch(b) {
+  head(b, 'بحث في الملفات');
+  const i = document.createElement('input'); i.className = 'pin'; i.placeholder = 'اكتب كلمة…'; b.appendChild(i);
+  const l = document.createElement('div'); l.className = 'plist'; b.appendChild(l);
+  const run = () => {
+    l.innerHTML = ''; const q = i.value.trim().toLowerCase();
+    if (!q) { l.innerHTML = '<div class="empty">ابحث بأسماء الملفات أو بمحتواها</div>'; return; }
+    let n = 0;
+    S.files.forEach(f => {
+      const content = f.id === S.active ? ta.value : f.content;
+      const lines = content.split('\n'); const hits = [];
+      lines.forEach((ln, ix) => { if (ln.toLowerCase().includes(q) && hits.length < 3) hits.push([ix, ln]); });
+      if (!hits.length && !f.name.toLowerCase().includes(q)) return;
+      n++;
+      const r = document.createElement('button'); r.className = 'sr';
+      r.innerHTML = '<b>' + escH(f.name) + '</b>' + hits.map(h => '<code>' + (h[0] + 1) + ': ' + escH(h[1].trim().slice(0, 60)) + '</code>').join('');
+      r.onclick = () => { closeDrawer(); loadFile(f.id); if (hits.length) { let p = 0; const ls = f.content.split('\n'); for (let k = 0; k < hits[0][0]; k++) p += ls[k].length + 1; ta.setSelectionRange(p, p); reveal(p); } };
+      l.appendChild(r);
+    });
+    if (!n) l.innerHTML = '<div class="empty">ما لقيت نتائج</div>';
+  };
+  i.oninput = run; run(); setTimeout(() => i.focus(), 100);
+}
+function panelRef(b) {
+  head(b, 'مرجع الكلمات');
+  const i = document.createElement('input'); i.className = 'pin'; i.placeholder = 'ابحث بالعربي أو الإنجليزي…'; b.appendChild(i);
+  const l = document.createElement('div'); l.className = 'plist'; b.appendChild(l);
+  const data = N.reference();
+  const open = new Set();
+  const run = () => {
+    l.innerHTML = ''; const q = N.norm(i.value.trim());
+    data.forEach((g, gi) => {
+      const items = q ? g.items.filter(x => N.norm(x.ar).includes(q) || x.en.toLowerCase().includes(q)) : g.items;
+      if (!items.length) return;
+      const h = document.createElement('button'); h.className = 'grp';
+      const isOpen = q || open.has(gi);
+      h.innerHTML = '<span>' + g.title + '</span><span>' + items.length + (isOpen ? ' ▴' : ' ▾') + '</span>';
+      h.onclick = () => { open.has(gi) ? open.delete(gi) : open.add(gi); run(); };
+      l.appendChild(h);
+      if (isOpen) items.forEach(x => {
+        const r = document.createElement('button'); r.className = 'ri';
+        r.innerHTML = '<span class="a">' + escH(x.ar) + '</span><span class="e">' + escH(x.en) + '</span>';
+        r.onclick = () => { closeDrawer(); ta.focus(); insert(x.ins); toast('أُدرجت: ' + x.ins); };
+        l.appendChild(r);
+      });
+    });
+    if (!l.children.length) l.innerHTML = '<div class="empty">ما لقيت كلمة</div>';
+  };
+  i.oninput = run; run();
+}
+
+/* ===== الإعدادات والمساعدة ===== */
+function settingsDlg() {
+  modal((card, close) => {
+    card.innerHTML = '<h4>الإعدادات</h4>';
+    const row = (label, el) => { const d = document.createElement('div'); d.className = 'fld'; const s = document.createElement('span'); s.textContent = label; d.appendChild(s); d.appendChild(el); card.appendChild(d); };
+    const rg = document.createElement('input'); rg.type = 'range'; rg.min = 11; rg.max = 22; rg.value = S.set.fs;
+    rg.oninput = () => { S.set.fs = +rg.value; applyFont(); lastLines = -1; render(); persist(); };
+    row('حجم الخط: ' + S.set.fs, rg);
+    const sw = (key) => { const b = document.createElement('button'); b.className = 'sw' + (S.set[key] ? ' on' : ''); b.onclick = () => { S.set[key] = !S.set[key]; b.classList.toggle('on', S.set[key]); persist(); if (!S.set.sug) hideSugg(); }; return b; };
+    row('الإكمال التلقائي للكلمات', sw('sug')); row('إغلاق الوسوم تلقائياً', sw('auto'));
+    const m = document.createElement('input'); m.type = 'text'; m.value = S.set.model; m.oninput = () => { S.set.model = m.value.trim() || 'gpt-4o-mini'; persist(); };
+    row('نموذج المعلم', m);
+    const a = btns([{ t: 'تم', v: 1, c: 'p' }, { t: 'مسح كل البيانات', v: 2, c: 'dz' }], async v => {
+      if (v === 2) { if (await askConfirm('مسح كل البيانات', 'راح تنحذف كل ملفاتك من التطبيق. متأكد؟', 'امسح', 'إلغاء', true)) { localStorage.removeItem(LSK); location.reload(); } else settingsDlg(); }
+      else close(1);
+    });
+    card.appendChild(a);
+  });
+}
+function helpDlg() {
+  info('كيف تستخدم نيرو', `
+<p><b>1.</b> اكتب كودك بالعربي (مثلاً <code style="direction:ltr;display:inline-block">&lt;قسم&gt;</code> و <code>لون: احمر;</code>).</p>
+<p><b>2.</b> اضغط زر <b>EN</b> الملون فوق، فيتحول كودك لإنجليزي حقيقي.</p>
+<p><b>3.</b> زر ▶ يشغّل الصفحة (يحوّل تلقائياً ويعرضها).</p>
+<p><b>4.</b> الكلمات الغير معروفة تنترك كما هي، فتقدر تخلط عربي وإنجليزي.</p>
+<p><b>5.</b> من القائمة الجانبية: <b>مرجع الكلمات</b> فيه كل الكلمات، و<b>المعلم</b> يعلمك خطوة بخطوة.</p>
+<p>قواعد سريعة: الوسوم <code>&lt;قسم&gt;</code> · الخصائص <code>فئة="…"</code> · CSS <code>حجم-الخط: 20بكسل;</code> · JS <code>دالة</code> <code>اذا</code> <code>اطبع()</code>.</p>
+<p>العنوان الكبير <code>&lt;عنوان&gt;</code> = h1، وعنوان الصفحة <code>&lt;عنوان_الصفحة&gt;</code> = title.</p>`);
+}
+
+/* ===== المعاينة ===== */
+const CAP = '<script>(function(){var p=function(t,a){try{parent.postMessage({nero:1,t:t,m:Array.prototype.map.call(a,function(x){try{return typeof x==="object"?JSON.stringify(x):String(x)}catch(e){return String(x)}}).join(" ")},"*")}catch(e){}};["log","info","warn","error"].forEach(function(k){var o=console[k];console[k]=function(){p(k,arguments);try{o.apply(console,arguments)}catch(e){}}});window.addEventListener("error",function(e){p("error",[e.message+" (سطر "+e.lineno+")"])});window.addEventListener("unhandledrejection",function(e){p("error",[String(e.reason)])});["localStorage","sessionStorage"].forEach(function(n){try{window[n].getItem("x")}catch(e){var m={};try{Object.defineProperty(window,n,{configurable:true,value:{getItem:function(k){return k in m?m[k]:null},setItem:function(k,v){m[k]=String(v)},removeItem:function(k){delete m[k]},clear:function(){m={}},key:function(i){return Object.keys(m)[i]||null},get length(){return Object.keys(m).length}}})}catch(e2){}}})})();<\/script>';
+let pvCode = '';
+function runPreview(showConsole) {
+  const f = cur(), k = kind(f);
+  if (k !== 'html') { toast('التشغيل متاح لملفات HTML'); return; }
+  let code = N.convert(ta.value, 'html');
+  if (/<head[^>]*>/i.test(code)) code = code.replace(/<head[^>]*>/i, m => m + CAP);
+  else if (/<!doctype[^>]*>/i.test(code)) code = code.replace(/<!doctype[^>]*>/i, m => m + CAP);
+  else code = CAP + code;
+  pvCode = code; $('#pvl').innerHTML = '';
+  $('#pvf').srcdoc = code;
+  $('#pv').classList.add('open');
+  $('#pvc').classList.toggle('open', !!showConsole === true);
+}
+function closePreview() { $('#pv').classList.remove('open'); $('#pvf').srcdoc = ''; }
+window.addEventListener('message', e => {
+  const d = e.data; if (!d || !d.nero) return;
+  const l = $('#pvl'), row = document.createElement('div'); row.className = d.t; row.textContent = d.m; l.appendChild(row); l.scrollTop = l.scrollHeight;
+  if (d.t === 'error') $('#pvc').classList.add('open');
+});
+
+/* ===== المعلم الذكي (Puter - مجاني بدون API) ===== */
+const SYS = 'أنت «معلم نيرو»، معلم برمجة ودود يشرح بالعربي البسيط (يمكنك استخدام لمسة عراقية خفيفة). نيرو محرر يسمح بكتابة HTML وCSS وJavaScript بكلمات عربية، وبضغطة زر يحوّلها لكود إنجليزي حقيقي. هدفك أن تعلّم المستخدم البرمجة خطوة بخطوة، وتربط دائماً بين الكلمة العربية ومقابلها الإنجليزي لأن هذا هو الكود الحقيقي.\n' +
+  'قواعد: 1) في الأمثلة استخدم فقط كلمات القاموس أدناه بالضبط، وإذا لم توجد كلمة عربية اكتب الكلمة الإنجليزية كما هي. 2) ضع الكود داخل ```html أو ```css أو ```js. 3) بعد المثال العربي اعرض النسخة الإنجليزية الناتجة باختصار. 4) اجعل الشرح قصيراً ومركزاً وخطوة خطوة، واقترح تمريناً صغيراً. 5) صيغة الكود: الوسوم <قسم>…</قسم>، الخصائص فئة="س"، CSS: جسم { لون: احمر; حجم-الخط: 20بكسل; }، JS: دالة اسم() { اذا (س > 1) { اطبع("مرحبا") } }. العنوان الكبير <عنوان> = h1 وعنوان الصفحة <عنوان_الصفحة> = title.\n\nالقاموس:\n' + N.promptDict();
+let chat = [], busy = false;
+const aim = $('#aim');
+function openAI() {
+  $('#ai').classList.add('open');
+  if (!aim.children.length) addBub('a', 'أهلاً! أنا معلم نيرو 👋\nاسألني أي شي عن البرمجة بالعربي، أو اضغط على أحد الأزرار تحت. أكتب لك أمثلة بكلمات عربية وأوضح لك مقابلها الإنجليزي.');
+  renderChips();
+}
+function closeAI() { $('#ai').classList.remove('open'); }
+function md(text) {
+  if ((text.match(/```/g) || []).length % 2) text += '\n```';
+  const parts = text.split(/```/); let html = '';
+  parts.forEach((p, i) => {
+    if (i % 2 === 0) {
+      html += escH(p).replace(/`([^`\n]+)`/g, '<code>$1</code>').replace(/\*\*([^*\n]+)\*\*/g, '<b>$1</b>').replace(/^#{1,4}\s*(.+)$/gm, '<b>$1</b>').replace(/\n/g, '<br>');
+    } else {
+      const m = /^([\w+-]*)\n?([\s\S]*)$/.exec(p); const lang = (m[1] || '').toLowerCase(), code = m[2].replace(/\n$/, '');
+      const k = lang === 'html' ? 'html' : lang === 'css' ? 'css' : (lang === 'js' || lang === 'javascript') ? 'js' : 'text';
+      html += '<div class="cb" data-i="' + i + '"><div class="cbh"><span><button data-a="copy">نسخ</button><button data-a="ins">ادرج بالمحرر</button></span><span>' + (lang || 'code') + '</span></div><pre>' + N.highlight(code, k) + '</pre></div>';
+    }
+  });
+  return { html, parts };
+}
+function addBub(role, text) {
+  const b = document.createElement('div'); b.className = 'bub ' + role;
+  if (role === 'u') b.textContent = text; else fillBub(b, text);
+  aim.appendChild(b); aim.scrollTop = aim.scrollHeight; return b;
+}
+function fillBub(b, text) {
+  const r = md(text); b.innerHTML = r.html;
+  b.querySelectorAll('.cb').forEach(cb => {
+    const code = cb.querySelector('pre').textContent;
+    cb.querySelector('[data-a=copy]').onclick = () => copyText(code);
+    cb.querySelector('[data-a=ins]').onclick = () => { closeAI(); ta.focus(); insert(code); toast('أُدرج الكود بالمحرر'); };
+  });
+}
+function renderChips() {
+  const c = $('#aic'); c.innerHTML = '';
+  [['اشرح الكود الحالي', 'اشرح لي هذا الكود سطر بسطر وبشكل بسيط، ووضح مقابل كل كلمة عربية بالإنجليزي:', true],
+   ['لاقي الأخطاء', 'راجع هذا الكود ودلني على الأخطاء وصححها:', true],
+   ['علمني HTML من الصفر', 'علمني HTML من الصفر خطوة بخطوة بكلمات نيرو العربية، ابدأ بالدرس الأول فقط.'],
+   ['علمني CSS', 'علمني CSS من الصفر بكلمات نيرو العربية، ابدأ بالدرس الأول فقط.'],
+   ['علمني JavaScript', 'علمني JavaScript من الصفر بكلمات نيرو العربية، ابدأ بالدرس الأول فقط.'],
+   ['اعطني تمرين', 'اعطني تمرين صغير مناسب لمستواي بكلمات نيرو العربية.'],
+   ['شلون أسوي زر؟', 'شلون أسوي زر يسوي شي لما أضغط عليه؟ بكلمات نيرو العربية.']
+  ].forEach(([t, q, withCode]) => {
+    const b = document.createElement('button'); b.textContent = t;
+    b.onclick = () => send(q + (withCode ? '\n```\n' + ta.value.slice(0, 6000) + '\n```' : ''), t);
+    c.appendChild(b);
+  });
+}
+function extract(r) {
+  if (typeof r === 'string') return r;
+  const c = r && r.message && r.message.content;
+  if (typeof c === 'string') return c;
+  if (Array.isArray(c)) return c.map(x => x.text || '').join('');
+  return (r && r.text) || '';
+}
+async function send(q, shown) {
+  if (busy) return;
+  q = (q || '').trim(); if (!q) return;
+  if (typeof puter === 'undefined' || !puter.ai) { addBub('u', shown || q); addBub('a', 'ما قدرت أتصل بالذكاء الاصطناعي ❌\nتأكد من الإنترنت وارجع جرب.'); return; }
+  busy = true; $('#aiSend').style.opacity = .5;
+  addBub('u', shown || q);
+  chat.push({ role: 'user', content: q }); if (chat.length > 10) chat = chat.slice(-10);
+  const bub = addBub('a', ''); bub.innerHTML = '<span class="typing">…</span>';
+  let acc = '';
+  try {
+    const msgs = [{ role: 'system', content: SYS }].concat(chat);
+    const r = await puter.ai.chat(msgs, { model: S.set.model || 'gpt-4o-mini', stream: true });
+    if (r && typeof r[Symbol.asyncIterator] === 'function') {
+      for await (const part of r) { acc += (part && part.text) || ''; fillBub(bub, acc); aim.scrollTop = aim.scrollHeight; }
+    } else { acc = extract(r); fillBub(bub, acc); }
+    if (!acc.trim()) throw new Error('empty');
+    chat.push({ role: 'assistant', content: acc });
+  } catch (e) {
+    const msg = (e && (e.message || (e.error && e.error.message))) || '';
+    fillBub(bub, acc || ('صار خطأ بالاتصال بالمعلم ❌\nتأكد من الإنترنت، ولو طلب منك تسجيل دخول Puter (مجاني) سجّل وارجع جرب.' + (msg ? '\n(' + msg + ')' : '')));
+    chat.pop();
+  }
+  busy = false; $('#aiSend').style.opacity = 1; aim.scrollTop = aim.scrollHeight;
+}
+$('#aiSend').onclick = () => { const i = $('#aiIn'); const v = i.value; i.value = ''; send(v); };
+$('#aiIn').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && (e.ctrlKey || e.metaKey)) { e.preventDefault(); $('#aiSend').click(); } });
+
+/* ===== ربط الأزرار ===== */
+function wire() {
+  $('#bMenu').innerHTML = svg('menu'); $('#bMenu').onclick = () => openDrawer();
+  $('#bConv').innerHTML = svg('trans') + 'EN'; $('#bConv').onclick = convertDlg;
+  $('#bEdit').innerHTML = svg('edit'); $('#bEdit').onclick = mainMenu;
+  $('#bRun').innerHTML = svg('play'); $('#bRun').onclick = () => runPreview(false);
+  $('#bMore').innerHTML = svg('more'); $('#bMore').onclick = fileMenu;
+  $('#fPrev').innerHTML = svg('up'); $('#fNext').innerHTML = svg('down'); $('#fX').innerHTML = svg('close');
+  $('#fPrev').onclick = () => findStep(-1); $('#fNext').onclick = () => findStep(1); $('#fX').onclick = () => toggleFind(false);
+  $('#rOne').onclick = replaceOne; $('#rAll').onclick = replaceAll;
+  $('#fab').innerHTML = svg('down');
+  $('#pvX').innerHTML = svg('close'); $('#pvX').onclick = closePreview;
+  $('#pvR').innerHTML = svg('refresh'); $('#pvR').onclick = () => { $('#pvl').innerHTML = ''; $('#pvf').srcdoc = pvCode; };
+  $('#pvC').innerHTML = svg('term'); $('#pvC').onclick = () => $('#pvc').classList.toggle('open');
+  $('#pvClr').onclick = () => { $('#pvl').innerHTML = ''; };
+  $('#aiX').innerHTML = svg('close'); $('#aiX').onclick = closeAI;
+  $('#aiClr').innerHTML = svg('trash'); $('#aiClr').onclick = () => { chat = []; aim.innerHTML = ''; openAI(); };
+  $('#aiSend').innerHTML = svg('send');
+}
+function fitViewport() {
+  const vv = window.visualViewport, app = $('#app');
+  const h = vv ? vv.height : window.innerHeight;
+  app.style.height = h + 'px'; app.style.top = (vv ? vv.offsetTop : 0) + 'px';
+  setTimeout(() => { reveal(ta.selectionStart); }, 50);
+}
+if (window.visualViewport) { window.visualViewport.addEventListener('resize', fitViewport); window.visualViewport.addEventListener('scroll', fitViewport); }
+window.addEventListener('resize', fitViewport);
+window.addEventListener('beforeunload', () => { const f = cur(); if (f) { f.content = ta.value; f.sel = [ta.selectionStart, ta.selectionEnd]; f.top = ta.scrollTop; } persist(true); });
+document.addEventListener('visibilitychange', () => { if (document.hidden) { const f = cur(); if (f) { f.content = ta.value; } persist(true); } });
+window.addEventListener('error', e => { try { console.error(e.message); } catch (x) {} });
+
+load(); applyFont(); wire(); buildQT(); renderQT(); fitViewport(); loadFile(S.active);
+window.NeroApp = { S, convertDlg, runPreview, loadFile, cur, commit, send, openAI, openDrawer, settingsDlg, mainMenu, fileMenu, undo, redo, saveFile, moveLines, copyLines, indent, moveCaret, insertSnippet, toggleFind, findStep, formatCode };
+})();
+
+</script>
 </body>
 </html>
