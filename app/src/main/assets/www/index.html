@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مخصص أيقونات التطبيقات</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #09090b 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .ios-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ios-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="p-4 flex flex-col items-center justify-center">
+
+    <div class="w-full max-w-md bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-2xl">
+        <h1 class="text-2xl font-bold text-center mb-2">تخصيص أيقونات التطبيقات</h1>
+        <p class="text-gray-300 text-center text-xs mb-6">غيري اسم وأيقونة أي تطبيق وافتحيه مباشرة بكل سهولة!</p>
+
+        <div class="space-y-4">
+            <div>
+                <label class="block text-xs font-medium mb-1 text-gray-200">اسم التطبيق الجديد</label>
+                <input type="text" id="appName" placeholder="مثلاً: يوتيوب السري" value="يوتيوب"
+                    class="w-full px-4 py-3 bg-black/40 border border-white/25 rounded-xl focus:outline-none focus:border-pink-500 text-white text-sm">
+            </div>
+
+            <div>
+                <label class="block text-xs font-medium mb-1 text-gray-200">اختاري التطبيق المستهدف</label>
+                <select id="appTarget" class="w-full px-4 py-3 bg-black/40 border border-white/25 rounded-xl focus:outline-none focus:border-pink-500 text-white text-sm">
+                    <option value="youtube">يوتيوب (YouTube)</option>
+                    <option value="instagram">إنستغرام (Instagram)</option>
+                    <option value="tiktok">تيك توك (TikTok)</option>
+                    <option value="whatsapp">واتساب (WhatsApp)</option>
+                    <option value="telegram">تليجرام (Telegram)</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-medium mb-1 text-gray-200">صورة الأيقونة المخصصة</label>
+                <input type="file" id="imageInput" accept="image/*" 
+                    class="w-full text-xs text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500 cursor-pointer">
+            </div>
+
+            <button onclick="launchTargetApp()" 
+                class="w-full py-3.5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 font-bold rounded-xl transition duration-200 shadow-lg shadow-pink-600/30 text-sm">
+                فتح التطبيق المخصص 🚀
+            </button>
+        </div>
+
+        <!-- المعاينة -->
+        <div class="mt-6 pt-6 border-t border-white/10 flex flex-col items-center">
+            <span class="text-xs text-gray-400 mb-3">معاينة الأيقونة</span>
+            <div class="ios-icon mb-2">
+                <img id="previewImg" src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="Icon">
+            </div>
+            <span id="previewName" class="text-xs font-bold text-white">يوتيوب</span>
+        </div>
+    </div>
+
+    <script>
+        const appNameInput = document.getElementById('appName');
+        const appTarget = document.getElementById('appTarget');
+        const imageInput = document.getElementById('imageInput');
+        const previewName = document.getElementById('previewName');
+        const previewImg = document.getElementById('previewImg');
+
+        const defaultIcons = {
+            youtube: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png",
+            instagram: "https://upload.wikimedia.org/wikipedia/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png",
+            tiktok: "https://sf16-scm.tiktokcdn.com/obj/eden-cn/ptlsog/ljhwZthlaukjlkulzlp/icon/tiktok_logo_icon_186947.png",
+            whatsapp: "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg",
+            telegram: "https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg"
+        };
+
+        appNameInput.addEventListener('input', (e) => {
+            previewName.textContent = e.target.value || 'تطبيق';
+        });
+
+        appTarget.addEventListener('change', (e) => {
+            const val = e.target.value;
+            previewImg.src = defaultIcons[val] || defaultIcons.youtube;
+        });
+
+        imageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    previewImg.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function launchTargetApp() {
+            const target = appTarget.value;
+            let intentUrl = "";
+            let fallbackUrl = "";
+
+            if (target === 'youtube') {
+                intentUrl = "intent://www.youtube.com/#Intent;package=com.google.android.youtube;scheme=https;end";
+                fallbackUrl = "https://play.google.com/store/apps/details?id=com.google.android.youtube";
+            } else if (target === 'instagram') {
+                intentUrl = "instagram://app";
+                fallbackUrl = "https://play.google.com/store/apps/details?id=com.instagram.android";
+            } else if (target === 'tiktok') {
+                intentUrl = "snssdk1128://";
+                fallbackUrl = "https://play.google.com/store/apps/details?id=com.zhiliaoapp.musically";
+            } else if (target === 'whatsapp') {
+                intentUrl = "whatsapp://send";
+                fallbackUrl = "https://play.google.com/store/apps/details?id=com.whatsapp";
+            } else if (target === 'telegram') {
+                intentUrl = "tg://resolve";
+                fallbackUrl = "https://play.google.com/store/apps/details?id=org.telegram.messenger";
+            }
+
+            window.location.href = intentUrl;
+            setTimeout(() => {
+                window.location.href = fallbackUrl;
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
