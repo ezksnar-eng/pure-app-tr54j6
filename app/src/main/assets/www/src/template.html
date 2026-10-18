@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover,interactive-widget=resizes-content">
+<meta name="theme-color" content="#24272c">
+<title>نيرو - محرر البرمجة بالعربي</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231e1b4b'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Cpath d='M21 29v8c0 7 5 11 11 11s11-4 11-11' fill='none' stroke='white' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='19' r='3.5' fill='%2322d3ee'/%3E%3C/svg%3E">
+<style>
+/*CSS*/
+</style>
+<script src="https://js.puter.com/v2/"></script>
+</head>
+<body>
+<div id="app">
+  <header id="top">
+    <button class="ib" id="bMenu" aria-label="القائمة"></button>
+    <div class="ttl"><b id="fT">index.html</b><small id="fS">ملف جديد</small></div>
+    <button class="pill" id="bConv" aria-label="حوّل للإنجليزي"></button>
+    <button class="ib" id="bEdit" aria-label="الملف"></button>
+    <button class="ib" id="bRun" aria-label="تشغيل"></button>
+    <button class="ib" id="bMore" aria-label="المزيد"></button>
+  </header>
+  <div id="tabs"></div>
+  <div id="findbar">
+    <div class="r"><input id="fIn" type="text" placeholder="بحث" autocomplete="off"><span id="findcount"></span>
+      <button class="s" id="fPrev"></button><button class="s" id="fNext"></button><button class="s" id="fX"></button></div>
+    <div class="r"><input id="rIn" type="text" placeholder="استبدال بـ" autocomplete="off">
+      <button class="s" id="rOne">استبدال</button><button class="s" id="rAll">الكل</button></div>
+  </div>
+  <main id="ed">
+    <div id="gutter"><div id="gin"></div></div>
+    <div id="wrap"><div id="cur"></div><div id="hl" class="code" aria-hidden="true"></div>
+      <textarea id="ta" class="code" dir="auto" wrap="soft" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea></div>
+  </main>
+  <div id="sugg"></div>
+  <footer id="qt"></footer>
+  <button id="fab" aria-label="الأدوات"></button>
+</div>
+<div id="toast"></div>
+<div id="drawer"><div id="dscrim"></div><div id="dpanel"><div id="rail"></div><div id="pbody"></div></div></div>
+<div id="dlg"><div class="card"></div></div>
+<div id="pv">
+  <div id="pvbar"><button class="ib" id="pvX"></button><div class="t">معاينة</div>
+    <button class="ib" id="pvR"></button><button class="ib" id="pvC"></button></div>
+  <iframe id="pvf" sandbox="allow-scripts allow-modals allow-forms allow-popups allow-pointer-lock"></iframe>
+  <div id="pvc"><div id="pvch"><span>وحدة التحكم</span><button id="pvClr">مسح</button></div><div id="pvl"></div></div>
+</div>
+<div id="ai">
+  <div id="aih"><button class="ib" id="aiX"></button><h3>معلم نيرو 🤖</h3><button class="ib" id="aiClr"></button></div>
+  <div id="aitabs"><button data-t="course" class="on">📚 الدورة الكاملة</button><button data-t="chat">💬 اسأل المعلم</button></div>
+  <div id="course"></div>
+  <div id="chatwrap">
+    <div id="aim"></div>
+    <div id="aic"></div>
+    <div id="aif"><textarea id="aiIn" rows="1" placeholder="اسأل المعلم عن البرمجة…"></textarea><button class="ib" id="aiSend"></button></div>
+  </div>
+</div>
+<input type="file" id="fileIn" accept=".html,.htm,.css,.js,.json,.txt,.py,.md" hidden>
+<script>
+/*COURSE*/
+</script>
+<script>
+/*CORE*/
+</script>
+<script>
+/*APP*/
+</script>
+</body>
+</html>

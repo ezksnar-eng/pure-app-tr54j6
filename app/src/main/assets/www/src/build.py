@@ -1,0 +1,6 @@
+t=open('template.html',encoding='utf-8').read()
+course=''.join(open(f,encoding='utf-8').read()+'\n' for f in ['course-html.js','course-css.js','course-js1.js','course-js2.js','snips.js'])
+esc=lambda s:s.replace('</script','<\\/script')
+t=t.replace('/*CSS*/',open('style.css',encoding='utf-8').read()).replace('/*COURSE*/',esc(course)).replace('/*CORE*/',esc(open('core.js',encoding='utf-8').read())).replace('/*APP*/',esc(open('app.js',encoding='utf-8').read()))
+open('nero.html','w',encoding='utf-8').write(t)
+print(len(t))
